@@ -1,1 +1,179 @@
-<h1>ClubHQ.cloud</h1>
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClubHQ.cloud - Zarządzanie Klubem Sportowym | Sports Club Management</title>
+    <meta name="description" content="Nowoczesna aplikacja do zarządzania klubem sportowym. Usprawnij komunikację, płatności i treningi w swoim klubie. Modern sports club management app.">
+    <meta name="keywords" content="klub sportowy, zarządzanie, aplikacja dla klubów, sports club management, academy app, ClubHQ">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="lang-pl">
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <a href="#" class="logo">ClubHQ<span>.cloud</span></a>
+            <div class="lang-switch">
+                <button onclick="setLang('pl')" class="lang-btn active" id="btn-pl">🇵🇱 PL</button>
+                <button onclick="setLang('en')" class="lang-btn" id="btn-en">🇬🇧 EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <span class="badge" lang="pl">Wkrótce dostępna</span>
+                <span class="badge" lang="en">Coming Soon</span>
+
+                <h1 lang="pl">Centrum dowodzenia Twoim klubem sportowym</h1>
+                <h1 lang="en">The Command Center for Your Sports Club</h1>
+
+                <p lang="pl">ClubHQ to nowoczesne narzędzie stworzone, aby zdjąć ciężar administracji z barków trenerów i menedżerów. Skup się na sporcie, my zajmiemy się resztą.</p>
+                <p lang="en">ClubHQ is a modern tool built to take the administrative burden off coaches and managers. Focus on the sport, we'll handle the rest.</p>
+
+                <a href="#contact" class="hero-btn btn" lang="pl">Powiadom mnie o starcie</a>
+                <a href="#contact" class="hero-btn btn" lang="en">Notify me on launch</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 2.5rem;" lang="pl">Dlaczego ClubHQ?</h2>
+                <h2 style="text-align: center; font-size: 2.5rem;" lang="en">Why ClubHQ?</h2>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3 lang="pl">💸 Płatności Automatyczne</h3>
+                        <h3 lang="en">💸 Automatic Payments</h3>
+                        <p lang="pl">Zapomnij o ręcznym sprawdzaniu przelewów. Zautomatyzuj składki członkowskie.</p>
+                        <p lang="en">Forget manual transfer checks. Automate membership fees.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 lang="pl">📱 Szybka Komunikacja</h3>
+                        <h3 lang="en">📱 Fast Communication</h3>
+                        <p lang="pl">Bezpośredni kontakt z rodzicami i zawodnikami poprzez aplikację.</p>
+                        <p lang="en">Direct contact with parents and players through the app.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta" id="contact">
+            <div class="container">
+                <h2 lang="pl">Bądź pierwszym, który przetestuje ClubHQ</h2>
+                <h2 lang="en">Be the first to test ClubHQ</h2>
+                <p lang="pl" style="margin: 1.5rem 0;">Trwają ostatnie prace nad aplikacją. Zostaw nam swój e-mail, a poinformujemy Cię o premierze.</p>
+                <p lang="en" style="margin: 1.5rem 0;">Final touches are being made. Leave us your email and we'll notify you about the premiere.</p>
+
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="hidden" name="access_key" value="fcbcb80f-4c03-4b32-9dfa-8d7bd393c57d">
+                    <input type="text" name="name" placeholder="Imię (opcjonalnie)" class="form-input" lang="pl">
+                    <input type="text" name="name" placeholder="Name (optional)" class="form-input" lang="en">
+                    <input type="email" name="email" placeholder="E-mail" class="form-input" required>
+                    <button type="submit" class="btn" lang="pl">Zapisz się</button>
+                    <button type="submit" class="btn" lang="en">Subscribe</button>
+                </form>
+
+                <div id="thank-you-message" class="success-message" style="display: none;">
+                    <p lang="pl">Dziękujemy! Twój e-mail został zapisany.</p>
+                    <p lang="en">Thank you! Your email has been saved.</p>
+                </div>
+
+                <div id="error-message" class="error-message" style="display: none;">
+                    <p lang="pl">Wystąpił błąd. Spróbuj ponownie.</p>
+                    <p lang="en">An error occurred. Please try again.</p>
+                </div>
+
+                <div id="limit-message" class="error-message" style="display: none;">
+                    <p lang="pl">Osiągnięto limit prób. Spróbuj później.</p>
+                    <p lang="en">Retry limit reached. Please try again later.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 ClubHQ.cloud. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'pl';
+        let retryCount = 0;
+        const MAX_RETRIES = 5;
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.body.className = 'lang-' + lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+            document.documentElement.lang = lang;
+        }
+
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (retryCount >= MAX_RETRIES) {
+                document.getElementById('error-message').style.display = 'none';
+                document.getElementById('limit-message').style.display = 'block';
+                return;
+            }
+
+            const form = this;
+            const formData = new FormData();
+
+            // Only add fields that belong to the current language or have no lang attribute
+            form.querySelectorAll('input, select, textarea').forEach(input => {
+                const lang = input.getAttribute('lang');
+                if (!lang || lang === currentLang) {
+                    formData.append(input.name, input.value);
+                }
+            });
+
+            formData.append('language', currentLang);
+
+            const submitBtn = form.querySelector('button[type="submit"]:not([style*="display: none"])');
+            const originalBtnText = submitBtn.innerText;
+
+            // Clear previous errors
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('limit-message').style.display = 'none';
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = currentLang === 'pl' ? 'Wysyłanie...' : 'Sending...';
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (response) => {
+                if (response.status === 200) {
+                    // Show thank you message
+                    form.style.display = 'none';
+                    document.getElementById('thank-you-message').style.display = 'block';
+                } else {
+                    handleError();
+                }
+            })
+            .catch(error => {
+                handleError();
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            });
+
+            function handleError() {
+                retryCount++;
+                if (retryCount >= MAX_RETRIES) {
+                    document.getElementById('limit-message').style.display = 'block';
+                    submitBtn.disabled = true;
+                } else {
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
