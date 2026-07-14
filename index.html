@@ -111,9 +111,23 @@
             currentLang = lang;
             document.body.className = 'lang-' + lang;
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('btn-' + lang).classList.add('active');
+            const btn = document.getElementById('btn-' + lang);
+            if (btn) btn.classList.add('active');
             document.documentElement.lang = lang;
         }
+
+        // Initialize language based on browser settings
+        function initLanguage() {
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang && userLang.toLowerCase().startsWith('pl')) {
+                setLang('pl');
+            } else {
+                setLang('en');
+            }
+        }
+
+        // Run initialization
+        initLanguage();
 
         document.getElementById('newsletter-form').addEventListener('submit', function(e) {
             e.preventDefault();
