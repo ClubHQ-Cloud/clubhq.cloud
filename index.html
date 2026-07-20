@@ -8,6 +8,7 @@
     <meta name="keywords" content="klub sportowy, zarządzanie, aplikacja dla klubów, sports club management, academy app, ClubHQ">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body class="lang-pl">
     <header>
@@ -62,6 +63,42 @@
             </div>
         </section>
 
+        <section class="pricing" id="pricing">
+            <div class="container">
+                <h2 style="text-align: center; font-size: 2.5rem;" lang="pl">Cennik</h2>
+                <h2 style="text-align: center; font-size: 2.5rem;" lang="en">Pricing</h2>
+                <p class="pricing-intro" lang="pl">Jeden prosty abonament miesięczny, dopasowany do wielkości klubu.</p>
+                <p class="pricing-intro" lang="en">One simple monthly subscription, sized to your club.</p>
+
+                <div class="pricing-grid">
+                    <div class="price-card">
+                        <h3>Starter</h3>
+                        <p class="price">100 zł<span lang="pl"> / mies.</span><span lang="en"> / mo.</span></p>
+                        <p class="price-limit" lang="pl">do 50 członków klubu</p>
+                        <p class="price-limit" lang="en">up to 50 club members</p>
+                    </div>
+                    <div class="price-card price-card-featured">
+                        <h3>Standard</h3>
+                        <p class="price">150 zł<span lang="pl"> / mies.</span><span lang="en"> / mo.</span></p>
+                        <p class="price-limit" lang="pl">do 100 członków klubu</p>
+                        <p class="price-limit" lang="en">up to 100 club members</p>
+                    </div>
+                    <div class="price-card">
+                        <h3>Pro</h3>
+                        <p class="price">200 zł<span lang="pl"> / mies.</span><span lang="en"> / mo.</span></p>
+                        <p class="price-limit" lang="pl">do 200 członków klubu</p>
+                        <p class="price-limit" lang="en">up to 200 club members</p>
+                    </div>
+                </div>
+
+                <p class="pricing-note" lang="pl">Trenerzy oraz konto właściciela klubu nie wliczają się do limitu członków.</p>
+                <p class="pricing-note" lang="en">Coaches and the club owner account do not count toward the member limit.</p>
+
+                <p class="pricing-fine-print" lang="pl">Podane ceny są cenami brutto (zawierają VAT). Płatność miesięczna, rozliczana automatycznie do momentu rezygnacji. Płatności online obsługuje <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>. Szczegóły w <a href="regulamin.html">Regulaminie</a>.</p>
+                <p class="pricing-fine-print" lang="en">Prices shown are gross (VAT included). Billed monthly, auto-renewing until cancelled. Online payments processed by <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>. See the <a href="regulamin.html">Terms &amp; Conditions</a> for details.</p>
+            </div>
+        </section>
+
         <section class="cta" id="contact">
             <div class="container">
                 <h2 lang="pl">Bądź pierwszym, który przetestuje ClubHQ</h2>
@@ -98,36 +135,31 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 ClubHQ.cloud. All rights reserved.</p>
+            <div class="footer-legal-links">
+                <a href="regulamin.html" lang="pl">Regulamin</a>
+                <a href="regulamin.html" lang="en">Terms &amp; Conditions</a>
+                <a href="polityka-prywatnosci.html" lang="pl">Polityka Prywatności</a>
+                <a href="polityka-prywatnosci.html" lang="en">Privacy Policy</a>
+                <a href="#pricing" lang="pl">Cennik</a>
+                <a href="#pricing" lang="en">Pricing</a>
+            </div>
+
+            <p class="footer-company" lang="pl">Michał Wójtowicz, ClubHQ, ul. Łosiowa 87, 43-300 Bielsko-Biała &middot; NIP: 6762446401 &middot; REGON: 361062286</p>
+            <p class="footer-company" lang="en">Michał Wójtowicz, ClubHQ, ul. Łosiowa 87, 43-300 Bielsko-Biała, Poland &middot; NIP: 6762446401 &middot; REGON: 361062286</p>
+
+            <p class="footer-contact" lang="pl">Kontakt: <a href="mailto:kontakt@clubhq.cloud">kontakt@clubhq.cloud</a></p>
+            <p class="footer-contact" lang="en">Contact: <a href="mailto:contact@clubhq.cloud">contact@clubhq.cloud</a></p>
+
+            <p class="footer-payments" lang="pl">Bezpieczne płatności online obsługuje <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>.</p>
+            <p class="footer-payments" lang="en">Secure online payments processed by <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>.</p>
+
+            <p class="footer-copyright">&copy; 2026 ClubHQ.cloud. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        let currentLang = 'pl';
         let retryCount = 0;
         const MAX_RETRIES = 5;
-
-        function setLang(lang) {
-            currentLang = lang;
-            document.body.className = 'lang-' + lang;
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            const btn = document.getElementById('btn-' + lang);
-            if (btn) btn.classList.add('active');
-            document.documentElement.lang = lang;
-        }
-
-        // Initialize language based on browser settings
-        function initLanguage() {
-            const userLang = navigator.language || navigator.userLanguage;
-            if (userLang && userLang.toLowerCase().startsWith('pl')) {
-                setLang('pl');
-            } else {
-                setLang('en');
-            }
-        }
-
-        // Run initialization
-        initLanguage();
 
         document.getElementById('newsletter-form').addEventListener('submit', function(e) {
             e.preventDefault();

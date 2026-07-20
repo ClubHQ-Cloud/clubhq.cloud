@@ -140,6 +140,79 @@ header {
 }
 
 
+.pricing {
+    padding: 5rem 0;
+    text-align: center;
+}
+
+.pricing-intro {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin: 0.5rem 0 3rem;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.price-card {
+    background: white;
+    border: 1px solid var(--bg-light);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.price-card-featured {
+    border: 2px solid var(--primary-color);
+}
+
+.price-card h3 {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.price-card .price {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.price-card .price span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.price-card .price-limit {
+    color: var(--text-muted);
+}
+
+.pricing-note {
+    max-width: 600px;
+    margin: 2rem auto 0.5rem;
+    font-weight: 600;
+}
+
+.pricing-fine-print {
+    max-width: 600px;
+    margin: 0.5rem auto 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+.pricing-fine-print a {
+    color: var(--primary-color);
+}
+
 .cta {
     padding: 5rem 0;
     text-align: center;
@@ -166,6 +239,41 @@ footer {
     border-top: 1px solid var(--bg-light);
     color: var(--text-muted);
     font-size: 0.875rem;
+}
+
+.footer-legal-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.footer-legal-links a {
+    color: var(--text-main);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.footer-legal-links a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.footer-company,
+.footer-contact,
+.footer-payments {
+    max-width: 700px;
+    margin: 0 auto 0.5rem;
+}
+
+.footer-contact a,
+.footer-payments a {
+    color: var(--primary-color);
+}
+
+.footer-copyright {
+    margin-top: 1.5rem;
 }
 
 [lang="pl"]:not(html), [lang="en"]:not(html) {
@@ -249,4 +357,61 @@ body.lang-en .feature-card h3[lang="en"] {
     .hero h1 {
         font-size: 2.5rem;
     }
+}
+
+.legal {
+    padding: 3rem 0 5rem;
+}
+
+.legal .container {
+    max-width: 800px;
+}
+
+.legal h1 {
+    font-size: 2.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.legal .legal-updated {
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+}
+
+.legal h2 {
+    font-size: 1.35rem;
+    margin: 2.25rem 0 0.75rem;
+}
+
+.legal h3 {
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.5rem;
+}
+
+.legal p {
+    margin-bottom: 1rem;
+}
+
+.legal ol,
+.legal ul {
+    margin: 0 0 1rem 1.5rem;
+}
+
+.legal li {
+    margin-bottom: 0.5rem;
+}
+
+.legal a {
+    color: var(--primary-color);
+}
+
+.legal .legal-back {
+    display: inline-block;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.legal .legal-back:hover {
+    text-decoration: underline;
 }
