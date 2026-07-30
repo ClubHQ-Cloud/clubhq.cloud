@@ -450,9 +450,15 @@ img {
 .lang-btn:hover {
     color: var(--text-primary);
     background-color: var(--surface-inset);
+    text-decoration: none;
 }
 
-.lang-btn[aria-pressed="true"] {
+/* On the home page the switch is a pair of buttons toggling one bilingual
+   document, so the active one is aria-pressed. On the legal pages each
+   language is its own URL, so the switch is a pair of links and the active
+   one is aria-current. Same treatment either way. */
+.lang-btn[aria-pressed="true"],
+.lang-btn[aria-current="page"] {
     color: var(--accent-soft-fg);
     background-color: var(--accent-soft-bg);
 }
@@ -486,7 +492,8 @@ img {
     background-color: oklch(100% 0 0 / .06);
 }
 
-.hero .lang-btn[aria-pressed="true"] {
+.hero .lang-btn[aria-pressed="true"],
+.hero .lang-btn[aria-current="page"] {
     color: var(--color-accent-on-dark);
     background-color: oklch(100% 0 0 / .07);
     border-color: var(--on-ink-border);

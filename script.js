@@ -27,6 +27,16 @@ function setLang(lang) {
 }
 
 function initLanguage() {
+    // Only the home page is one bilingual document with a toggle. The legal
+    // pages are a separate URL per language, so their switch is a pair of
+    // links — leave them alone, or auto-detection would fight the URL the
+    // visitor deliberately followed.
+    const toggles = document.querySelectorAll('button.lang-btn');
+    if (!toggles.length) {
+        currentLang = document.documentElement.lang || 'pl';
+        return;
+    }
+
     const userLang = navigator.language || navigator.userLanguage;
     if (userLang && userLang.toLowerCase().startsWith('pl')) {
         setLang('pl');
@@ -34,7 +44,7 @@ function initLanguage() {
         setLang('en');
     }
 
-    document.querySelectorAll('.lang-btn').forEach(btn => {
+    toggles.forEach(btn => {
         btn.addEventListener('click', () => setLang(btn.id.replace('btn-', '')));
     });
 }
