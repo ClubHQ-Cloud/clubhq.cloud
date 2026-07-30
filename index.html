@@ -6,154 +6,509 @@
     <title>ClubHQ.cloud - Zarządzanie Klubem Sportowym | Sports Club Management</title>
     <meta name="description" content="Nowoczesna aplikacja do zarządzania klubem sportowym. Usprawnij komunikację, płatności i treningi w swoim klubie. Modern sports club management app.">
     <meta name="keywords" content="klub sportowy, zarządzanie, aplikacja dla klubów, sports club management, academy app, ClubHQ">
+    <meta name="theme-color" content="#1a1d29">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preload" href="fonts/space-grotesk-300-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/ibm-plex-mono-500-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body class="lang-pl">
-    <header>
-        <div class="container" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-            <a href="#" class="logo">
-                <img src="images/logo.png" alt="ClubHQ.cloud Icon" height="60">
-                <span class="logo-text">ClubHQ.cloud</span>
-            </a>
-            <div class="lang-switch">
-                <button onclick="setLang('pl')" class="lang-btn active" id="btn-pl">🇵🇱 PL</button>
-                <button onclick="setLang('en')" class="lang-btn" id="btn-en">🇬🇧 EN</button>
+
+    <!-- ===================== HERO (the one ink panel) ===================== -->
+    <section class="hero">
+        <div class="container">
+
+            <div class="topbar">
+                <a href="index.html" class="lockup tone-dark">
+                    <svg viewBox="0 0 100 100" role="img" aria-label="ClubHQ">
+                        <rect x="20" y="28" width="15" height="52" rx="3.5" fill="currentColor"/>
+                        <rect x="65" y="20" width="15" height="52" rx="3.5" fill="var(--chq-mark-accent)"/>
+                        <path d="M33 56.1 L66 38.5 L66 53.5 L33 71.1 Z" fill="currentColor"/>
+                    </svg>
+                    <span class="lockup-word">Club<span>HQ</span></span>
+                </a>
+
+                <div class="lang-switch">
+                    <button type="button" class="lang-btn" id="btn-pl" aria-pressed="true">PL</button>
+                    <button type="button" class="lang-btn" id="btn-en" aria-pressed="false">EN</button>
+                </div>
             </div>
+
+            <div class="hero-grid">
+                <div class="hero-copy">
+                    <p class="eyebrow rise rise-1" lang="pl">Wkrótce dostępna</p>
+                    <p class="eyebrow rise rise-1" lang="en">Coming soon</p>
+
+                    <h1 class="rise rise-1" lang="pl">Centrum dowodzenia Twoim klubem sportowym</h1>
+                    <h1 class="rise rise-1" lang="en">The command center for your sports club</h1>
+
+                    <p class="lede rise rise-2" lang="pl">Składki, grupy, treningi i obecność w jednym miejscu. ClubHQ zdejmuje administrację z barków trenerów — Ty zajmujesz się sportem.</p>
+                    <p class="lede rise rise-2" lang="en">Fees, groups, training and attendance in one place. ClubHQ takes the admin off coaches' shoulders — you get on with the sport.</p>
+
+                    <div class="hero-actions rise rise-3">
+                        <a href="#signup" class="btn btn-primary" lang="pl">Powiadom mnie o starcie</a>
+                        <a href="#signup" class="btn btn-primary" lang="en">Notify me at launch</a>
+                        <a href="#pricing" class="btn btn-ghost-dark" lang="pl">Zobacz cennik</a>
+                        <a href="#pricing" class="btn btn-ghost-dark" lang="en">See pricing</a>
+                    </div>
+                </div>
+
+                <div class="preview rise rise-3" id="preview" data-preview-theme="dark">
+                    <div class="preview-head">
+                        <div class="preview-tabs" role="tablist" id="preview-tabs">
+                            <button type="button" role="tab" id="tab-calendar"
+                                    aria-controls="panel-calendar" aria-selected="true">
+                                <span lang="pl">Kalendarz</span><span lang="en">Calendar</span>
+                            </button>
+                            <button type="button" role="tab" id="tab-groups"
+                                    aria-controls="panel-groups" aria-selected="false" tabindex="-1">
+                                <span lang="pl">Grupy</span><span lang="en">Groups</span>
+                            </button>
+                            <button type="button" role="tab" id="tab-balances"
+                                    aria-controls="panel-balances" aria-selected="false" tabindex="-1">
+                                <span lang="pl">Salda</span><span lang="en">Balances</span>
+                            </button>
+                        </div>
+
+                        <div class="preview-theme" role="group" id="preview-theme">
+                            <button type="button" data-preview-set="light" aria-pressed="false"
+                                    data-label-pl="Motyw jasny" data-label-en="Bright theme">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="4"/>
+                                    <path d="M12 2v2"/><path d="M12 20v2"/>
+                                    <path d="M2 12h2"/><path d="M20 12h2"/>
+                                    <path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
+                                    <path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+                                </svg>
+                            </button>
+                            <button type="button" data-preview-set="dark" aria-pressed="true"
+                                    data-label-pl="Motyw ciemny" data-label-en="Dark theme">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 1 — Calendar -->
+                    <div class="preview-panel" role="tabpanel" id="panel-calendar" aria-labelledby="tab-calendar">
+                        <p class="preview-note" lang="pl">Treningi w tym tygodniu — z grupą, salą i prowadzącym.</p>
+                        <p class="preview-note" lang="en">This week's sessions — with group, venue and coach.</p>
+
+                        <div class="preview-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="col-label" lang="pl">Termin</th>
+                                        <th class="col-label" lang="en">When</th>
+                                        <th class="col-label" lang="pl">Grupa</th>
+                                        <th class="col-label" lang="en">Group</th>
+                                        <th class="col-label num" lang="pl">Miejsce</th>
+                                        <th class="col-label num" lang="en">Venue</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="data-num" lang="pl">pon 14:00</td>
+                                        <td class="data-num" lang="en">Mon 14:00</td>
+                                        <td>U12</td>
+                                        <td class="num" lang="pl">Hala A</td>
+                                        <td class="num" lang="en">Hall A</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-num" lang="pl">śr 17:30</td>
+                                        <td class="data-num" lang="en">Wed 17:30</td>
+                                        <td lang="pl">Seniorzy</td>
+                                        <td lang="en">Seniors</td>
+                                        <td class="num" lang="pl">Boisko 1</td>
+                                        <td class="num" lang="en">Pitch 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="data-num" lang="pl">pt 16:00</td>
+                                        <td class="data-num" lang="en">Fri 16:00</td>
+                                        <td>U15</td>
+                                        <td class="num" lang="pl">Hala B</td>
+                                        <td class="num" lang="en">Hall B</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="preview-foot">
+                            <span class="col-label" lang="pl">W tym tygodniu</span>
+                            <span class="col-label" lang="en">This week</span>
+                            <span class="total data-num" lang="pl">5 treningów</span>
+                            <span class="total data-num" lang="en">5 sessions</span>
+                        </div>
+                    </div>
+
+                    <!-- 2 — Group confirmations -->
+                    <div class="preview-panel" role="tabpanel" id="panel-groups" aria-labelledby="tab-groups" hidden>
+                        <p class="preview-note" lang="pl">Kto potwierdził obecność na najbliższym treningu U12.</p>
+                        <p class="preview-note" lang="en">Who has confirmed for the next U12 session.</p>
+
+                        <div class="preview-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="col-label" lang="pl">Członek</th>
+                                        <th class="col-label" lang="en">Member</th>
+                                        <th class="col-label" lang="pl">Grupa</th>
+                                        <th class="col-label" lang="en">Group</th>
+                                        <th class="col-label num" lang="pl">Obecność</th>
+                                        <th class="col-label num" lang="en">Attending</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="person"><span class="avatar" aria-hidden="true">MZ</span>Maja Zielińska</span></td>
+                                        <td>U12</td>
+                                        <td class="num">
+                                            <span class="chip chip-paid" lang="pl">Potwierdzone</span>
+                                            <span class="chip chip-paid" lang="en">Confirmed</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="person"><span class="avatar" aria-hidden="true">PK</span>Piotr Kowalski</span></td>
+                                        <td>U12</td>
+                                        <td class="num">
+                                            <span class="chip chip-paid" lang="pl">Potwierdzone</span>
+                                            <span class="chip chip-paid" lang="en">Confirmed</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="person"><span class="avatar" aria-hidden="true">TL</span>Tomasz Lewandowski</span></td>
+                                        <td>U12</td>
+                                        <td class="num">
+                                            <span class="chip chip-due" lang="pl">Czeka</span>
+                                            <span class="chip chip-due" lang="en">Pending</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="preview-foot">
+                            <span class="col-label" lang="pl">Potwierdzeni</span>
+                            <span class="col-label" lang="en">Confirmed</span>
+                            <span class="total data-num" lang="pl">12 z 14</span>
+                            <span class="total data-num" lang="en">12 of 14</span>
+                        </div>
+                    </div>
+
+                    <!-- 3 — Balances -->
+                    <div class="preview-panel" role="tabpanel" id="panel-balances" aria-labelledby="tab-balances" hidden>
+                        <p class="preview-note" lang="pl">Kto i ile zalega — jedna kolumna zamiast historii przelewów.</p>
+                        <p class="preview-note" lang="en">Who owes what — one column instead of a bank statement.</p>
+
+                        <div class="preview-scroll">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="col-label" lang="pl">Członek</th>
+                                        <th class="col-label" lang="en">Member</th>
+                                        <th class="col-label num" lang="pl">Saldo</th>
+                                        <th class="col-label num" lang="en">Balance</th>
+                                        <th class="col-label num" lang="pl">Status</th>
+                                        <th class="col-label num" lang="en">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="person"><span class="avatar" aria-hidden="true">MZ</span>Maja Zielińska</span></td>
+                                        <td class="num data-num amt-overdue">-60.00 PLN</td>
+                                        <td class="num">
+                                            <span class="chip chip-overdue" lang="pl">Zaległe <time data-day-offset="-14"></time></span>
+                                            <span class="chip chip-overdue" lang="en">Overdue <time data-day-offset="-14"></time></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="person"><span class="avatar" aria-hidden="true">PK</span>Piotr Kowalski</span></td>
+                                        <td class="num data-num amt-zero">0.00 PLN</td>
+                                        <td class="num">
+                                            <span class="chip chip-paid" lang="pl">Opłacone</span>
+                                            <span class="chip chip-paid" lang="en">Paid</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="person"><span class="avatar" aria-hidden="true">TL</span>Tomasz Lewandowski</span></td>
+                                        <td class="num data-num amt-due">-150.00 PLN</td>
+                                        <td class="num">
+                                            <span class="chip chip-due" lang="pl">Termin <time data-day-offset="0"></time></span>
+                                            <span class="chip chip-due" lang="en">Due <time data-day-offset="0"></time></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="preview-foot">
+                            <span class="col-label" lang="pl">Suma zaległości</span>
+                            <span class="col-label" lang="en">Total outstanding</span>
+                            <span class="total data-num">-210.00 PLN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </header>
+    </section>
 
     <main>
-        <section class="hero">
+        <!-- ===================== FEATURES ===================== -->
+        <section class="section" id="features">
             <div class="container">
-                <span class="badge" lang="pl">Wkrótce dostępna</span>
-                <span class="badge" lang="en">Coming Soon</span>
+                <div class="section-head">
+                    <p class="eyebrow" lang="pl">Co jest w środku</p>
+                    <p class="eyebrow" lang="en">What's inside</p>
+                    <h2 lang="pl">Cztery rzeczy, na które trenerzy tracą wieczory</h2>
+                    <h2 lang="en">Four things that eat a coach's evenings</h2>
+                    <p lang="pl">Każda z nich jest w ClubHQ osobnym ekranem — i każda przestaje być arkuszem kalkulacyjnym.</p>
+                    <p lang="en">Each one is its own screen in ClubHQ — and each one stops being a spreadsheet.</p>
+                </div>
 
-                <h1 lang="pl">Centrum dowodzenia Twoim klubem sportowym</h1>
-                <h1 lang="en">The Command Center for Your Sports Club</h1>
-
-                <p lang="pl">ClubHQ to nowoczesne narzędzie stworzone, aby zdjąć ciężar administracji z barków trenerów i menedżerów. Skup się na sporcie, my zajmiemy się resztą.</p>
-                <p lang="en">ClubHQ is a modern tool built to take the administrative burden off coaches and managers. Focus on the sport, we'll handle the rest.</p>
-
-                <a href="#contact" class="hero-btn btn" lang="pl">Powiadom mnie o starcie</a>
-                <a href="#contact" class="hero-btn btn" lang="en">Notify me on launch</a>
-            </div>
-        </section>
-
-        <section class="features">
-            <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem;" lang="pl">Dlaczego ClubHQ?</h2>
-                <h2 style="text-align: center; font-size: 2.5rem;" lang="en">Why ClubHQ?</h2>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <h3 lang="pl">💸 Płatności Automatyczne</h3>
-                        <h3 lang="en">💸 Automatic Payments</h3>
-                        <p lang="pl">Zapomnij o ręcznym sprawdzaniu przelewów. Zautomatyzuj składki członkowskie.</p>
-                        <p lang="en">Forget manual transfer checks. Automate membership fees.</p>
+                <div class="card-grid">
+                    <div class="card">
+                        <p class="eyebrow" lang="pl">Płatności</p>
+                        <p class="eyebrow" lang="en">Payments</p>
+                        <h3 lang="pl">Składki, które same się pilnują</h3>
+                        <h3 lang="en">Fees that chase themselves</h3>
+                        <p lang="pl">Cykliczne składki, salda rodzin i historia wpłat. Zamiast przeglądać przelewy, patrzysz na jedną kolumnę: kto zalega. Płatności online obsługuje Przelewy24.</p>
+                        <p lang="en">Recurring fees, family balances and payment history. Instead of reading bank transfers you read one column: who owes. Online payments run through Przelewy24.</p>
+                        <div class="card-fields">
+                            <span class="field" lang="pl">Saldo</span><span class="field" lang="en">Balance</span>
+                            <span class="field" lang="pl">Zaległe</span><span class="field" lang="en">Overdue</span>
+                            <span class="field" lang="pl">Bieżące</span><span class="field" lang="en">Not overdue</span>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <h3 lang="pl">📱 Szybka Komunikacja</h3>
-                        <h3 lang="en">📱 Fast Communication</h3>
-                        <p lang="pl">Bezpośredni kontakt z rodzicami i zawodnikami poprzez aplikację.</p>
-                        <p lang="en">Direct contact with parents and players through the app.</p>
+
+                    <div class="card">
+                        <p class="eyebrow" lang="pl">Członkowie</p>
+                        <p class="eyebrow" lang="en">Members</p>
+                        <h3 lang="pl">Klub, grupy i rodziny</h3>
+                        <h3 lang="en">Club, groups and families</h3>
+                        <p lang="pl">Kartoteka członków, grupy treningowe i konta opiekunów powiązane z dziećmi. Rodzic widzi swoje dzieci, trener widzi swoją grupę.</p>
+                        <p lang="en">A member register, training groups, and guardian accounts linked to their children. A parent sees their kids; a coach sees their group.</p>
+                        <div class="card-fields">
+                            <span class="field" lang="pl">Profil</span><span class="field" lang="en">Profile</span>
+                            <span class="field" lang="pl">Grupa</span><span class="field" lang="en">Group</span>
+                            <span class="field" lang="pl">Opiekun</span><span class="field" lang="en">Guardian</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <p class="eyebrow" lang="pl">Treningi</p>
+                        <p class="eyebrow" lang="en">Training</p>
+                        <h3 lang="pl">Terminarz i obecność</h3>
+                        <h3 lang="en">Schedule and attendance</h3>
+                        <p lang="pl">Treningi z typami zajęć i dostępnością trenerów, a obecność odbijasz na miejscu, z telefonu — nie z pamięci następnego dnia.</p>
+                        <p lang="en">Sessions with training types and coach availability, and attendance marked on the spot from a phone — not from memory the next day.</p>
+                        <div class="card-fields">
+                            <span class="chip chip-success" lang="pl">Obecny</span><span class="chip chip-success" lang="en">Present</span>
+                            <span class="chip chip-warning" lang="pl">Spóźniony</span><span class="chip chip-warning" lang="en">Late</span>
+                            <span class="chip chip-danger" lang="pl">Nieobecny</span><span class="chip chip-danger" lang="en">Absent</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <p class="eyebrow" lang="pl">Powiadomienia</p>
+                        <p class="eyebrow" lang="en">Notifications</p>
+                        <h3 lang="pl">Wiadomości, które docierają</h3>
+                        <h3 lang="en">Messages that actually arrive</h3>
+                        <p lang="pl">Odwołany trening albo zaległa składka trafia do właściwych osób — w aplikacji, SMS-em lub e-mailem. Bez grup na komunikatorach.</p>
+                        <p lang="en">A cancelled session or an overdue fee reaches the right people — in the app, by SMS or by email. No more group chats.</p>
+                        <div class="card-fields">
+                            <span class="field" lang="pl">Aplikacja</span><span class="field" lang="en">In-app</span>
+                            <span class="field">SMS</span>
+                            <span class="field" lang="pl">E-mail</span><span class="field" lang="en">Email</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="pricing" id="pricing">
+        <!-- ===================== PRICING ===================== -->
+        <section class="section section-inset" id="pricing">
             <div class="container">
-                <h2 style="text-align: center; font-size: 2.5rem;" lang="pl">Cennik</h2>
-                <h2 style="text-align: center; font-size: 2.5rem;" lang="en">Pricing</h2>
-                <p class="pricing-intro" lang="pl">Jeden prosty abonament miesięczny, dopasowany do wielkości klubu.</p>
-                <p class="pricing-intro" lang="en">One simple monthly subscription, sized to your club.</p>
+                <div class="section-head">
+                    <p class="eyebrow" lang="pl">Cennik</p>
+                    <p class="eyebrow" lang="en">Pricing</p>
+                    <h2 lang="pl">Jeden abonament, dopasowany do wielkości klubu</h2>
+                    <h2 lang="en">One subscription, sized to your club</h2>
+                    <p lang="pl">Bez opłat wdrożeniowych i bez prowizji od składek. Płacisz za liczbę członków, nie za funkcje.</p>
+                    <p lang="en">No setup fee and no commission on fees. You pay for member count, not for features.</p>
+                </div>
 
-                <div class="pricing-grid">
-                    <div class="price-card">
-                        <h3>Starter</h3>
-                        <p class="price">100 zł<span lang="pl"> / mies.</span><span lang="en"> / mo.</span></p>
-                        <p class="price-limit" lang="pl">do 50 członków klubu</p>
-                        <p class="price-limit" lang="en">up to 50 club members</p>
-                    </div>
-                    <div class="price-card price-card-featured">
-                        <h3>Standard</h3>
-                        <p class="price">150 zł<span lang="pl"> / mies.</span><span lang="en"> / mo.</span></p>
-                        <p class="price-limit" lang="pl">do 100 członków klubu</p>
-                        <p class="price-limit" lang="en">up to 100 club members</p>
-                    </div>
-                    <div class="price-card">
-                        <h3>Pro</h3>
-                        <p class="price">200 zł<span lang="pl"> / mies.</span><span lang="en"> / mo.</span></p>
-                        <p class="price-limit" lang="pl">do 200 członków klubu</p>
-                        <p class="price-limit" lang="en">up to 200 club members</p>
+                <div class="price-wrap">
+                    <div class="price-scroll">
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-label" lang="pl">Plan</th>
+                                    <th class="col-label" lang="en">Plan</th>
+                                    <th class="col-label" lang="pl">Członkowie</th>
+                                    <th class="col-label" lang="en">Members</th>
+                                    <th class="col-label num" lang="pl">Cena / mies.</th>
+                                    <th class="col-label num" lang="en">Price / mo.</th>
+                                    <th class="col-label act"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="plan">Starter</span></td>
+                                    <td class="limit" lang="pl">do 50 członków</td>
+                                    <td class="limit" lang="en">up to 50 members</td>
+                                    <td class="num"><span class="amount data-num">100 zł</span></td>
+                                    <td class="act">
+                                        <a href="#signup" class="btn btn-sm btn-primary" lang="pl">Wybierz</a>
+                                        <a href="#signup" class="btn btn-sm btn-primary" lang="en">Choose</a>
+                                    </td>
+                                </tr>
+                                <tr class="featured">
+                                    <td>
+                                        <span class="plan">Standard
+                                            <span class="chip chip-accent" lang="pl">Polecany</span>
+                                            <span class="chip chip-accent" lang="en">Recommended</span>
+                                        </span>
+                                    </td>
+                                    <td class="limit" lang="pl">do 100 członków</td>
+                                    <td class="limit" lang="en">up to 100 members</td>
+                                    <td class="num"><span class="amount data-num">150 zł</span></td>
+                                    <td class="act">
+                                        <a href="#signup" class="btn btn-sm btn-primary" lang="pl">Wybierz</a>
+                                        <a href="#signup" class="btn btn-sm btn-primary" lang="en">Choose</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="plan">Pro</span></td>
+                                    <td class="limit" lang="pl">do 200 członków</td>
+                                    <td class="limit" lang="en">up to 200 members</td>
+                                    <td class="num"><span class="amount data-num">200 zł</span></td>
+                                    <td class="act">
+                                        <a href="#signup" class="btn btn-sm btn-primary" lang="pl">Wybierz</a>
+                                        <a href="#signup" class="btn btn-sm btn-primary" lang="en">Choose</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <p class="pricing-note" lang="pl">Trenerzy oraz konto właściciela klubu nie wliczają się do limitu członków.</p>
-                <p class="pricing-note" lang="en">Coaches and the club owner account do not count toward the member limit.</p>
-
-                <p class="pricing-fine-print" lang="pl">Podane ceny są cenami brutto (zawierają VAT). Płatność miesięczna, rozliczana automatycznie do momentu rezygnacji. Płatności online obsługuje <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>. Szczegóły w <a href="regulamin.html">Regulaminie</a>.</p>
-                <p class="pricing-fine-print" lang="en">Prices shown are gross (VAT included). Billed monthly, auto-renewing until cancelled. Online payments processed by <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>. See the <a href="regulamin.html">Terms &amp; Conditions</a> for details.</p>
+                <div class="price-notes">
+                    <p class="note" lang="pl">Trenerzy oraz konto właściciela klubu nie wliczają się do limitu członków.</p>
+                    <p class="note" lang="en">Coaches and the club owner account do not count toward the member limit.</p>
+                    <p class="fine" lang="pl">Podane ceny są cenami brutto (zawierają VAT). Płatność miesięczna, rozliczana automatycznie do momentu rezygnacji. Płatności online obsługuje <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>. Szczegóły w <a href="regulamin.html">Regulaminie</a>.</p>
+                    <p class="fine" lang="en">Prices shown are gross (VAT included). Billed monthly, auto-renewing until cancelled. Online payments processed by <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>. See the <a href="regulamin.html">Terms &amp; Conditions</a> for details.</p>
+                </div>
             </div>
         </section>
 
-        <section class="cta" id="contact">
+        <!-- ===================== SIGN-UP ===================== -->
+        <section class="section" id="signup">
             <div class="container">
-                <h2 lang="pl">Bądź pierwszym, który przetestuje ClubHQ</h2>
-                <h2 lang="en">Be the first to test ClubHQ</h2>
-                <p lang="pl" style="margin: 1.5rem 0;">Trwają ostatnie prace nad aplikacją. Zostaw nam swój e-mail, a poinformujemy Cię o premierze.</p>
-                <p lang="en" style="margin: 1.5rem 0;">Final touches are being made. Leave us your email and we'll notify you about the premiere.</p>
+                <div class="signup">
+                    <p class="eyebrow" lang="pl">Lista startowa</p>
+                    <p class="eyebrow" lang="en">Launch list</p>
+                    <h2 lang="pl">Bądź pierwszym klubem, który przetestuje ClubHQ</h2>
+                    <h2 lang="en">Be the first club to try ClubHQ</h2>
+                    <p lang="pl">Trwają ostatnie prace nad aplikacją. Zostaw e-mail — napiszemy, kiedy ClubHQ będzie gotowy, i nic poza tym.</p>
+                    <p lang="en">We're putting the final touches to the app. Leave your email — we'll write when ClubHQ is ready, and nothing else.</p>
 
-                <form class="newsletter-form" id="newsletter-form">
-                    <input type="hidden" name="access_key" value="fcbcb80f-4c03-4b32-9dfa-8d7bd393c57d">
-                    <input type="text" name="name" placeholder="Imię (opcjonalnie)" class="form-input" lang="pl">
-                    <input type="text" name="name" placeholder="Name (optional)" class="form-input" lang="en">
-                    <input type="email" name="email" placeholder="E-mail" class="form-input" required>
-                    <button type="submit" class="btn" lang="pl">Zapisz się</button>
-                    <button type="submit" class="btn" lang="en">Subscribe</button>
-                </form>
+                    <form class="form" id="newsletter-form" novalidate>
+                        <input type="hidden" name="access_key" value="fcbcb80f-4c03-4b32-9dfa-8d7bd393c57d">
 
-                <div id="thank-you-message" class="success-message" style="display: none;">
-                    <p lang="pl">Dziękujemy! Twój e-mail został zapisany.</p>
-                    <p lang="en">Thank you! Your email has been saved.</p>
-                </div>
+                        <div>
+                            <label class="field-label" for="nl-name-pl" lang="pl">Imię — opcjonalnie</label>
+                            <label class="field-label" for="nl-name-en" lang="en">Name — optional</label>
+                            <input class="input" type="text" id="nl-name-pl" name="name" autocomplete="name" lang="pl">
+                            <input class="input" type="text" id="nl-name-en" name="name" autocomplete="name" lang="en">
+                        </div>
 
-                <div id="error-message" class="error-message" style="display: none;">
-                    <p lang="pl">Wystąpił błąd. Spróbuj ponownie.</p>
-                    <p lang="en">An error occurred. Please try again.</p>
-                </div>
+                        <div>
+                            <label class="field-label" for="nl-email" lang="pl">Adres e-mail</label>
+                            <label class="field-label" for="nl-email" lang="en">Email address</label>
+                            <input class="input" type="email" id="nl-email" name="email" autocomplete="email" required placeholder="trener@twojklub.pl">
+                        </div>
 
-                <div id="limit-message" class="error-message" style="display: none;">
-                    <p lang="pl">Osiągnięto limit prób. Spróbuj później.</p>
-                    <p lang="en">Retry limit reached. Please try again later.</p>
+                        <label class="check" for="nl-updates">
+                            <input type="checkbox" id="nl-updates" name="feature_updates">
+                            <span lang="pl">Chcę też dostawać wiadomości o nowych funkcjach ClubHQ, nie tylko o premierze.</span>
+                            <span lang="en">Also send me news about new ClubHQ features, not just the launch.</span>
+                        </label>
+
+                        <button type="submit" class="btn btn-primary btn-block" lang="pl">Zapisz mnie</button>
+                        <button type="submit" class="btn btn-primary btn-block" lang="en">Sign me up</button>
+
+                        <p class="form-note" lang="pl">Jeden e-mail o premierze. Możesz wypisać się w każdej chwili.</p>
+                        <p class="form-note" lang="en">One email at launch. Unsubscribe any time.</p>
+                    </form>
+
+                    <div id="thank-you-message" class="banner banner-success" hidden>
+                        <p lang="pl">Zapisane. Napiszemy na podany adres, kiedy ClubHQ wystartuje.</p>
+                        <p lang="en">Saved. We'll write to that address when ClubHQ launches.</p>
+                    </div>
+
+                    <div id="error-message" class="banner banner-danger" hidden>
+                        <p lang="pl">Nie udało się zapisać adresu. Sprawdź połączenie i spróbuj ponownie.</p>
+                        <p lang="en">We couldn't save that address. Check your connection and try again.</p>
+                    </div>
+
+                    <div id="limit-message" class="banner banner-danger" hidden>
+                        <p lang="pl">Osiągnięto limit prób. Spróbuj później.</p>
+                        <p lang="en">Retry limit reached. Please try again later.</p>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- ===================== FOOTER ===================== -->
     <footer>
         <div class="container">
-            <div class="footer-legal-links">
-                <a href="regulamin.html" lang="pl">Regulamin</a>
-                <a href="regulamin.html" lang="en">Terms &amp; Conditions</a>
-                <a href="polityka-prywatnosci.html" lang="pl">Polityka Prywatności</a>
-                <a href="polityka-prywatnosci.html" lang="en">Privacy Policy</a>
-                <a href="#pricing" lang="pl">Cennik</a>
-                <a href="#pricing" lang="en">Pricing</a>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="lockup tone-auto">
+                        <svg viewBox="0 0 100 100" role="img" aria-label="ClubHQ">
+                            <rect x="20" y="28" width="15" height="52" rx="3.5" fill="currentColor"/>
+                            <rect x="65" y="20" width="15" height="52" rx="3.5" fill="var(--chq-mark-accent)"/>
+                            <path d="M33 56.1 L66 38.5 L66 53.5 L33 71.1 Z" fill="currentColor"/>
+                        </svg>
+                        <span class="lockup-word">Club<span>HQ</span></span>
+                    </span>
+                    <p class="footer-tagline" lang="pl">Zarządzanie klubem sportowym — składki, grupy, treningi.</p>
+                    <p class="footer-tagline" lang="en">Sports club management — fees, groups, training.</p>
+                </div>
+
+                <nav class="footer-nav">
+                    <p class="col-label" lang="pl">Serwis</p>
+                    <p class="col-label" lang="en">Site</p>
+                    <a href="#pricing" lang="pl">Cennik</a>
+                    <a href="#pricing" lang="en">Pricing</a>
+                    <a href="regulamin.html" lang="pl">Regulamin</a>
+                    <a href="regulamin.html" lang="en">Terms &amp; Conditions</a>
+                    <a href="polityka-prywatnosci.html" lang="pl">Polityka Prywatności</a>
+                    <a href="polityka-prywatnosci.html" lang="en">Privacy Policy</a>
+                </nav>
+
+                <div class="footer-contact">
+                    <p class="col-label" lang="pl">Kontakt</p>
+                    <p class="col-label" lang="en">Contact</p>
+                    <a href="mailto:kontakt@clubhq.cloud" lang="pl">kontakt@clubhq.cloud</a>
+                    <a href="mailto:contact@clubhq.cloud" lang="en">contact@clubhq.cloud</a>
+                    <a class="data-num" href="tel:+48515279851">+48 515 279 851</a>
+                </div>
             </div>
 
-            <p class="footer-company" lang="pl">Michał Wójtowicz, ClubHQ, ul. Łosiowa 87, 43-300 Bielsko-Biała &middot; NIP: 6762446401 &middot; REGON: 361062286</p>
-            <p class="footer-company" lang="en">Michał Wójtowicz, ClubHQ, ul. Łosiowa 87, 43-300 Bielsko-Biała, Poland &middot; NIP: 6762446401 &middot; REGON: 361062286</p>
-
-            <p class="footer-contact" lang="pl">Kontakt: <a href="mailto:kontakt@clubhq.cloud">kontakt@clubhq.cloud</a> &middot; <a href="tel:+48515279851">+48 515 279 851</a></p>
-            <p class="footer-contact" lang="en">Contact: <a href="mailto:contact@clubhq.cloud">contact@clubhq.cloud</a> &middot; <a href="tel:+48515279851">+48 515 279 851</a></p>
-
-            <p class="footer-payments" lang="pl">Bezpieczne płatności online obsługuje <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>.</p>
-            <p class="footer-payments" lang="en">Secure online payments processed by <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>.</p>
-
-            <p class="footer-copyright">&copy; 2026 ClubHQ.cloud. All rights reserved.</p>
+            <div class="footer-legal">
+                <p lang="pl">Michał Wójtowicz, ClubHQ, ul. Łosiowa 87, 43-300 Bielsko-Biała &middot; NIP <span class="data-num">6762446401</span> &middot; REGON <span class="data-num">361062286</span></p>
+                <p lang="en">Michał Wójtowicz, ClubHQ, ul. Łosiowa 87, 43-300 Bielsko-Biała, Poland &middot; NIP <span class="data-num">6762446401</span> &middot; REGON <span class="data-num">361062286</span></p>
+                <p lang="pl">Bezpieczne płatności online obsługuje <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>.</p>
+                <p lang="en">Secure online payments processed by <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>.</p>
+                <p>&copy; 2026 ClubHQ.cloud</p>
+            </div>
         </div>
     </footer>
 
@@ -161,12 +516,16 @@
         let retryCount = 0;
         const MAX_RETRIES = 5;
 
-        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+        document.getElementById('newsletter-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
+            const thankYou = document.getElementById('thank-you-message');
+            const errorMsg = document.getElementById('error-message');
+            const limitMsg = document.getElementById('limit-message');
+
             if (retryCount >= MAX_RETRIES) {
-                document.getElementById('error-message').style.display = 'none';
-                document.getElementById('limit-message').style.display = 'block';
+                errorMsg.hidden = true;
+                limitMsg.hidden = false;
                 return;
             }
 
@@ -176,19 +535,27 @@
             // Only add fields that belong to the current language or have no lang attribute
             form.querySelectorAll('input, select, textarea').forEach(input => {
                 const lang = input.getAttribute('lang');
-                if (!lang || lang === currentLang) {
+                if (lang && lang !== currentLang) return;
+
+                // A checkbox's value is the same whether or not it is ticked, so the
+                // opt-in has to be sent as its checked state.
+                if (input.type === 'checkbox') {
+                    formData.append(input.name, input.checked ? 'yes' : 'no');
+                } else {
                     formData.append(input.name, input.value);
                 }
             });
 
             formData.append('language', currentLang);
 
-            const submitBtn = form.querySelector('button[type="submit"]:not([style*="display: none"])');
+            // The two submit buttons are language variants; pick the visible one so
+            // the pending label lands on the button the visitor can actually see.
+            const submitBtn = form.querySelector('button[type="submit"][lang="' + currentLang + '"]');
             const originalBtnText = submitBtn.innerText;
 
             // Clear previous errors
-            document.getElementById('error-message').style.display = 'none';
-            document.getElementById('limit-message').style.display = 'none';
+            errorMsg.hidden = true;
+            limitMsg.hidden = true;
 
             submitBtn.disabled = true;
             submitBtn.innerText = currentLang === 'pl' ? 'Wysyłanie...' : 'Sending...';
@@ -201,7 +568,7 @@
                 if (response.status === 200) {
                     // Show thank you message
                     form.style.display = 'none';
-                    document.getElementById('thank-you-message').style.display = 'block';
+                    thankYou.hidden = false;
                 } else {
                     handleError();
                 }
@@ -217,10 +584,10 @@
             function handleError() {
                 retryCount++;
                 if (retryCount >= MAX_RETRIES) {
-                    document.getElementById('limit-message').style.display = 'block';
+                    limitMsg.hidden = false;
                     submitBtn.disabled = true;
                 } else {
-                    document.getElementById('error-message').style.display = 'block';
+                    errorMsg.hidden = false;
                 }
             }
         });

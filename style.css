@@ -1,417 +1,1274 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+/* ===========================================================================
+   ClubHQ.cloud — built on the ClubHQ application's design system.
 
-:root {
-    --primary-color: #2563eb;
-    --primary-hover: #1d4ed8;
-    --text-main: #1f2937;
-    --text-muted: #6b7280;
-    --bg-white: #ffffff;
-    --bg-light: #f3f4f6;
-    --max-width: 1200px;
+   Every colour below is copied from the app's own tokens
+   (AppFrontend/ds-bundle/tokens/colors.css). Nothing here is invented: the
+   accent is the logo's offset stem, the neutrals are the cool hue-258 ramp,
+   and the status hues sit in the same lightness/chroma band with only the
+   hue changing.
+
+   The system's rule for type is that it splits by what the reader *does*
+   with it: Space Grotesk for everything read as language, IBM Plex Mono for
+   everything compared — amounts, dates, IDs, phone numbers, column headers.
+
+   Surfaces are flat: a hairline border, rounded-xl, no shadow. Elevation
+   (shadow-lg) is reserved for things that overlap.
+   =========================================================================== */
+
+/* --- Brand webfonts, self-hosted -------------------------------------------
+   Vendored from the app (frontend/src/assets/fonts) so the site has no
+   third-party runtime dependency and no FOUT from a cross-origin round trip.
+   Both are SIL Open Font License 1.1 — see fonts/OFL-*.txt.
+
+   Subsets: latin + latin-ext. latin-ext is required, not optional: the Polish
+   copy needs ą ć ę ł ń ó ś ź ż. */
+
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url('fonts/space-grotesk-300-700-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url('fonts/space-grotesk-300-700-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/ibm-plex-mono-400-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/ibm-plex-mono-400-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('fonts/ibm-plex-mono-500-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+    font-family: 'IBM Plex Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('fonts/ibm-plex-mono-500-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-* {
-    margin: 0;
-    padding: 0;
+/* ===========================================================================
+   Tokens
+   =========================================================================== */
+
+:root {
+    /* --- brand ramps, from the app's tokens/colors.css --------------------- */
+    --color-slate-50:  oklch(96.5% .004 258);
+    --color-slate-100: oklch(93.5% .005 258);
+    --color-slate-200: oklch(90%   .006 258);
+    --color-slate-300: oklch(84%   .008 258);
+    --color-slate-400: oklch(72%   .012 258);
+    --color-slate-500: oklch(60%   .016 258);
+    --color-slate-600: oklch(50%   .02  258);
+    --color-slate-700: oklch(38%   .024 258);
+    --color-slate-800: oklch(30%   .028 258);
+    --color-slate-900: oklch(24%   .03  258);
+    --color-slate-950: oklch(19%   .03  258);
+
+    --color-indigo-50:  oklch(97.5% .012 258);
+    --color-indigo-100: oklch(94%   .032 258);
+    --color-indigo-200: oklch(88%   .062 258);
+    --color-indigo-300: oklch(78%   .11  258);
+    --color-indigo-400: oklch(72%   .15  258);
+    --color-indigo-600: oklch(52%   .19  258);
+    --color-indigo-700: oklch(45%   .18  258);
+    --color-indigo-800: oklch(38%   .16  258);
+    --color-indigo-950: oklch(24%   .08  258);
+
+    --color-green-100: oklch(94% .04  150);
+    --color-green-400: oklch(69% .14  150);
+    --color-green-700: oklch(44% .115 150);
+    --color-green-950: oklch(24% .05  150);
+
+    --color-amber-100: oklch(95% .05  85);
+    --color-amber-400: oklch(76% .14  76);
+    --color-amber-700: oklch(52% .13  75);
+    --color-amber-950: oklch(27% .06  75);
+
+    --color-red-100: oklch(94% .04  25);
+    --color-red-400: oklch(67% .17  25);
+    --color-red-600: oklch(50% .18  25);
+    --color-red-700: oklch(43% .155 25);
+    --color-red-950: oklch(24% .07  25);
+
+    --color-ink:            oklch(24% .03 258);
+    --color-accent:         oklch(52% .19 258);
+    --color-accent-on-dark: oklch(68% .16 258);
+    --surface-inverse:      oklch(21% .03 258);
+
+    /* --- type ------------------------------------------------------------- */
+    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+    --text-xs:   .75rem;
+    --text-sm:   .875rem;
+    --text-base: 1rem;
+    --text-lg:   1.125rem;
+    --text-xl:   1.25rem;
+    --text-2xl:  1.5rem;
+    --text-3xl:  1.875rem;
+    --text-4xl:  2.25rem;
+
+    /* The app's scale stops at 4xl because product screens never need display
+       type. A landing page does, so it is extended upward on the same ratio —
+       and obeys the system's own rule that the bigger a heading gets, the
+       tighter it tracks. */
+    --text-display: clamp(2.25rem, 1.15rem + 4.4vw, 3.5rem);
+    --text-section: clamp(1.875rem, 1.55rem + 1.1vw, 2.25rem);
+
+    /* --- shape, motion, measure ------------------------------------------- */
+    --radius-md: .375rem;
+    --radius-lg: .5rem;
+    --radius-xl: .75rem;
+
+    --ease-brand: cubic-bezier(.2, .7, .2, 1);
+    --dur-color: 120ms;   /* colour / hover   */
+    --dur-ui:    180ms;   /* switch / tab     */
+    --dur-panel: 260ms;   /* dialog / toast   */
+
+    --container:       64rem;   /* --container-5xl */
+    --container-prose: 48rem;   /* --container-3xl, for legal pages */
+
+    /* Shadows are cool and tight — ink at 5–12% alpha, never black. */
+    --shadow-lg: 0 4px 8px oklch(24% .03 258 / .06), 0 20px 44px oklch(24% .03 258 / .12);
+
+    /* --- semantic roles, named as the design system names them ------------ */
+    --surface-page:   var(--color-slate-50);
+    --surface-card:   #fff;
+    --surface-inset:  var(--color-slate-100);
+    --surface-hero:   var(--surface-inverse);
+    --border-subtle:  var(--color-slate-200);
+    --border-default: var(--color-slate-300);
+    --text-primary:   var(--color-slate-900);
+    --text-secondary: var(--color-slate-600);
+    --text-tertiary:  var(--color-slate-500);
+    --accent-text:    var(--color-accent);
+    --accent-soft-bg: var(--color-indigo-100);
+    --accent-soft-fg: var(--color-indigo-700);
+
+    --action-primary:        var(--color-indigo-600);
+    --action-primary-hover:  var(--color-indigo-700);
+    --action-primary-active: var(--color-indigo-800);
+
+    --success-bg: var(--color-green-100); --success-fg: var(--color-green-700);
+    --warning-bg: var(--color-amber-100); --warning-fg: var(--color-amber-700);
+    --danger-bg:  var(--color-red-100);   --danger-fg:  var(--color-red-700);
+}
+
+/* Dark theme. The app pairs every light class with a `dark:` variant, so the
+   site does too. Not an inversion: the ink hero lifts to slate-900 so it still
+   reads as a panel above a slate-950 page, and accent text moves to
+   --accent-on-dark, which is exactly what that token exists for.
+
+   Driven by the OS preference. The [data-theme] blocks below let a theme
+   toggle override it later — matching the app's own ThemeSwitcher — without
+   touching any of the styling above. */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --surface-page:   var(--color-slate-950);
+        --surface-card:   var(--color-slate-900);
+        --surface-inset:  var(--color-slate-800);
+        --surface-hero:   var(--color-slate-900);
+        --border-subtle:  var(--color-slate-800);
+        --border-default: var(--color-slate-700);
+        --text-primary:   var(--color-slate-100);
+        --text-secondary: var(--color-slate-300);
+        --text-tertiary:  var(--color-slate-400);
+        --accent-text:    var(--color-accent-on-dark);
+        --accent-soft-bg: var(--color-indigo-950);
+        --accent-soft-fg: var(--color-indigo-400);
+        --success-bg: var(--color-green-950); --success-fg: var(--color-green-400);
+        --warning-bg: var(--color-amber-950); --warning-fg: var(--color-amber-400);
+        --danger-bg:  var(--color-red-950);   --danger-fg:  var(--color-red-400);
+    }
+}
+
+:root[data-theme="dark"] {
+    --surface-page:   var(--color-slate-950);
+    --surface-card:   var(--color-slate-900);
+    --surface-inset:  var(--color-slate-800);
+    --surface-hero:   var(--color-slate-900);
+    --border-subtle:  var(--color-slate-800);
+    --border-default: var(--color-slate-700);
+    --text-primary:   var(--color-slate-100);
+    --text-secondary: var(--color-slate-300);
+    --text-tertiary:  var(--color-slate-400);
+    --accent-text:    var(--color-accent-on-dark);
+    --accent-soft-bg: var(--color-indigo-950);
+    --accent-soft-fg: var(--color-indigo-400);
+    --success-bg: var(--color-green-950); --success-fg: var(--color-green-400);
+    --warning-bg: var(--color-amber-950); --warning-fg: var(--color-amber-400);
+    --danger-bg:  var(--color-red-950);   --danger-fg:  var(--color-red-400);
+}
+
+:root[data-theme="light"] {
+    --surface-page:   var(--color-slate-50);
+    --surface-card:   #fff;
+    --surface-inset:  var(--color-slate-100);
+    --surface-hero:   var(--surface-inverse);
+    --border-subtle:  var(--color-slate-200);
+    --border-default: var(--color-slate-300);
+    --text-primary:   var(--color-slate-900);
+    --text-secondary: var(--color-slate-600);
+    --text-tertiary:  var(--color-slate-500);
+    --accent-text:    var(--color-accent);
+    --accent-soft-bg: var(--color-indigo-100);
+    --accent-soft-fg: var(--color-indigo-700);
+    --success-bg: var(--color-green-100); --success-fg: var(--color-green-700);
+    --warning-bg: var(--color-amber-100); --warning-fg: var(--color-amber-700);
+    --danger-bg:  var(--color-red-100);   --danger-fg:  var(--color-red-700);
+}
+
+/* ===========================================================================
+   Base
+   =========================================================================== */
+
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    color: var(--text-main);
-    background-color: var(--bg-white);
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    color: var(--text-primary);
+    background-color: var(--surface-page);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 1.5rem;
+/* Space Grotesk needs negative tracking as it scales up, and headings are the
+   one place the brand is emphatic about it. */
+h1, h2, h3, h4 {
+    margin: 0;
+    font-weight: 700;
+    text-wrap: balance;
 }
 
-header {
-    padding: 1.5rem 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--bg-light);
+h1 { letter-spacing: -.035em; line-height: 1.06; }
+h2 { letter-spacing: -.03em;  line-height: 1.12; }
+h3, h4 { letter-spacing: -.02em; }
+
+p {
+    margin: 0;
+    text-wrap: pretty;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
+a {
+    color: var(--accent-text);
     text-decoration: none;
 }
 
-.logo img {
-    display: block;
-    height: 60px;
-    width: auto;
+a:hover {
+    text-decoration: underline;
 }
 
-.logo-text {
-    font-size: 1.5rem;
+/* Focus is a 3px accent ring at 32% — never a browser default outline. */
+:focus-visible {
+    outline: 3px solid oklch(52% .19 258 / .32);
+    outline-offset: 1px;
+    border-radius: var(--radius-md);
+}
+
+table {
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* --- the brand text roles, from the app's index.css --------------------- */
+
+/* Small mono label above a heading. */
+.eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+/* Table column header — same device, tracked tighter because a header row
+   carries several side by side. */
+.col-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+/* Anything the reader compares down a column: money, dates, IDs, phones. */
+.data-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0;
+}
+
+/* ===========================================================================
+   Layout
+   =========================================================================== */
+
+.container {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+}
+
+.section {
+    padding-block: clamp(3.5rem, 8vw, 5.5rem);
+}
+
+.section-inset {
+    background-color: var(--surface-inset);
+}
+
+.section-head {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    margin-bottom: 2.5rem;
+}
+
+.section-head .eyebrow { color: var(--text-tertiary); }
+.section-head h2 { font-size: var(--text-section); }
+
+.section-head p {
+    color: var(--text-secondary);
+    font-size: var(--text-lg);
+    max-width: 60ch;
+}
+
+/* ===========================================================================
+   Brand lockup — the "Offset H": left stem planted, right stem raised 8
+   units, crossbar swept upward between them. Ink comes from currentColor and
+   the offset stem from --chq-mark-accent, so a tone is just a pair of CSS
+   values. Per the brand's handoff rules the mark is never recoloured
+   stem-by-stem outside this palette, never outlined, and never rotated.
+   =========================================================================== */
+
+.lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: .42em;
+    font-size: 28px;
+    text-decoration: none;
+}
+
+.lockup:hover { text-decoration: none; }
+
+.lockup svg {
+    width: 1em;
+    height: 1em;
+    display: block;
+    flex: none;
+}
+
+.lockup-word {
     font-weight: 700;
-    color: var(--primary-color);
-    margin-left: 12px;
+    font-size: .62em;
+    letter-spacing: -.03em;
+    white-space: nowrap;
+}
+
+.lockup-word span { color: var(--chq-mark-accent); }
+
+.tone-auto { color: var(--text-primary); --chq-mark-accent: var(--accent-text); }
+.tone-dark { color: #fff; --chq-mark-accent: var(--color-accent-on-dark); }
+
+/* ===========================================================================
+   Top bar — used light on the legal pages, and inside the ink hero on the
+   home page (see .hero .topbar below).
+   =========================================================================== */
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.5rem;
+}
+
+.site-header {
+    border-bottom: 1px solid var(--border-subtle);
+    background-color: var(--surface-card);
 }
 
 .lang-switch {
     display: flex;
-    gap: 0.5rem;
+    gap: .25rem;
 }
 
 .lang-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding: .5rem .7rem;
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
     background: none;
-    border: 1px solid var(--text-muted);
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 600;
-    transition: all 0.2s;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+    color: var(--text-tertiary);
+    transition: color var(--dur-color) var(--ease-brand),
+                background-color var(--dur-color) var(--ease-brand),
+                border-color var(--dur-color) var(--ease-brand);
 }
 
-.lang-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+.lang-btn:hover {
+    color: var(--text-primary);
+    background-color: var(--surface-inset);
 }
+
+.lang-btn[aria-pressed="true"] {
+    color: var(--accent-soft-fg);
+    background-color: var(--accent-soft-bg);
+}
+
+/* ===========================================================================
+   Hero — the one full-bleed ink panel on the site.
+
+   The design system reserves --surface-inverse for exactly two things: the
+   marketing/auth panel and tooltips. A landing hero *is* the marketing panel,
+   so it gets the ink — and nothing else does, which is what keeps it
+   emphatic.
+   =========================================================================== */
 
 .hero {
-    padding: 5rem 0;
-    text-align: center;
+    background-color: var(--surface-hero);
+    border-bottom: 1px solid oklch(100% 0 0 / .08);
+    color: #fff;
+
+    /* On-ink roles for the hero's own copy and controls. Borders are
+       translucent white rather than fixed greys, so they sit correctly on the
+       ink at 0.21 (light) and slate-900 (dark) alike. */
+    --on-ink-2:      var(--color-slate-300);
+    --on-ink-3:      var(--color-slate-400);
+    --on-ink-border: oklch(100% 0 0 / .10);
 }
 
-.hero h1 {
-    font-size: 3.5rem;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    font-weight: 800;
+.hero .lang-btn { color: var(--on-ink-3); }
+
+.hero .lang-btn:hover {
+    color: #fff;
+    background-color: oklch(100% 0 0 / .06);
 }
 
-.hero p {
-    font-size: 1.25rem;
-    color: var(--text-muted);
-    max-width: 800px;
-    margin: 0 auto 2.5rem;
+.hero .lang-btn[aria-pressed="true"] {
+    color: var(--color-accent-on-dark);
+    background-color: oklch(100% 0 0 / .07);
+    border-color: var(--on-ink-border);
 }
 
-.badge {
-    display: inline-block;
-    background-color: #dbeafe;
-    color: var(--primary-color);
-    padding: 0.5rem 1rem;
-    border-radius: 9999px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    margin-bottom: 1.5rem;
-}
-
-.features {
-    padding: 5rem 0;
-    background-color: var(--bg-light);
-}
-
-.features-grid {
+.hero-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.feature-card {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.feature-card h3 {
-    margin-bottom: 1rem;
-    font-size: 1.25rem;
-    display: flex;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3.5rem, 7vw, 5.5rem);
     align-items: center;
-    gap: 0.5rem;
 }
 
-
-.pricing {
-    padding: 5rem 0;
-    text-align: center;
+@media (min-width: 62rem) {
+    .hero-grid { grid-template-columns: 1.05fr .95fr; }
 }
 
-.pricing-intro {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    margin: 0.5rem 0 3rem;
+.hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
 }
 
-.pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2rem;
-    max-width: 900px;
-    margin: 0 auto;
+.hero-copy .eyebrow { color: var(--color-accent-on-dark); }
+.hero-copy h1 { font-size: var(--text-display); }
+
+.hero-copy .lede {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--on-ink-2);
+    max-width: 46ch;
 }
 
-.price-card {
-    background: white;
-    border: 1px solid var(--bg-light);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-top: .5rem;
 }
 
-.price-card-featured {
-    border: 2px solid var(--primary-color);
-}
-
-.price-card h3 {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
-}
-
-.price-card .price {
-    font-size: 2.25rem;
-    font-weight: 800;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-}
-
-.price-card .price span {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-muted);
-}
-
-.price-card .price-limit {
-    color: var(--text-muted);
-}
-
-.pricing-note {
-    max-width: 600px;
-    margin: 2rem auto 0.5rem;
-    font-weight: 600;
-}
-
-.pricing-fine-print {
-    max-width: 600px;
-    margin: 0.5rem auto 0;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
-
-.pricing-fine-print a {
-    color: var(--primary-color);
-}
-
-.cta {
-    padding: 5rem 0;
-    text-align: center;
-}
+/* ===========================================================================
+   Buttons
+   =========================================================================== */
 
 .btn {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.2s;
-}
-
-.btn:hover {
-    background-color: var(--primary-hover);
-}
-
-footer {
-    padding: 3rem 0;
-    text-align: center;
-    border-top: 1px solid var(--bg-light);
-    color: var(--text-muted);
-    font-size: 0.875rem;
-}
-
-.footer-legal-links {
-    display: flex;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.footer-legal-links a {
-    color: var(--text-main);
+    gap: .5rem;
+    padding: .8rem 1.35rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
     font-weight: 600;
+    border-radius: var(--radius-lg);
+    border: 1px solid transparent;
+    cursor: pointer;
     text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--dur-color) var(--ease-brand),
+                border-color var(--dur-color) var(--ease-brand),
+                color var(--dur-color) var(--ease-brand);
 }
 
-.footer-legal-links a:hover {
-    color: var(--primary-color);
-    text-decoration: underline;
+.btn:hover { text-decoration: none; }
+
+.btn-primary { background-color: var(--action-primary); color: #fff; }
+.btn-primary:hover { background-color: var(--action-primary-hover); }
+.btn-primary:active { background-color: var(--action-primary-active); }
+
+.btn-primary:disabled {
+    background-color: var(--color-slate-400);
+    cursor: default;
 }
 
-.footer-company,
-.footer-contact,
-.footer-payments {
-    max-width: 700px;
-    margin: 0 auto 0.5rem;
+.btn-ghost-dark {
+    background: none;
+    color: #fff;
+    border-color: var(--on-ink-border);
 }
 
-.footer-contact a,
-.footer-payments a {
-    color: var(--primary-color);
+.btn-ghost-dark:hover {
+    background-color: oklch(100% 0 0 / .06);
+    border-color: oklch(100% 0 0 / .2);
 }
 
-.footer-copyright {
+.btn-sm { padding: .5rem .9rem; font-size: var(--text-sm); }
+.btn-block { width: 100%; }
+
+/* ===========================================================================
+   The hero's product preview.
+
+   Three real screens behind tabs — the week's sessions, who has confirmed for
+   them, and what the club is owed. The calendar leads deliberately: it is the
+   part of the week a coach actually plans around, and it opens on something
+   the visitor can act on rather than on somebody's arrears.
+
+   The product is themeable, so the preview carries the app's own theme
+   switcher and demonstrates it. Both states are one token set, swapped by
+   [data-preview-theme]; every rule below reads a token and never a theme
+   value directly, which is the same discipline the page itself uses.
+
+   Dark is the default: on the ink panel it recedes, so the headline still
+   leads. Switched to bright it becomes a light panel sitting on dark — the
+   "things that overlap" case the system reserves shadow-lg for — so
+   elevation appears exactly then and not before.
+   =========================================================================== */
+
+.preview {
+    /* --- dark (default): translucent white over the ink panel ------------- */
+    --app-card:      oklch(100% 0 0 / .04);
+    --app-inset:     oklch(100% 0 0 / .02);
+    --app-rule:      oklch(100% 0 0 / .08);
+    --app-border:    oklch(100% 0 0 / .10);
+    --app-ink:       #fff;
+    --app-3:         var(--color-slate-400);
+    --app-avatar-bg: oklch(100% 0 0 / .10);
+    --app-shadow:    none;
+
+    --app-paid-bg: oklch(69% .14 150 / .16); --app-paid-fg: var(--color-green-400);
+    --app-due-bg:  oklch(76% .14 76  / .16); --app-due-fg:  var(--color-amber-400);
+    --app-over-bg: oklch(67% .17 25  / .16); --app-over-fg: var(--color-red-400);
+
+    --app-amt-over: var(--color-red-400);
+    --app-amt-due:  var(--color-amber-400);
+    --app-amt-zero: var(--color-slate-400);
+
+    /* Tabs and theme switcher, mirroring ThemeSwitcher.tsx's compact variant. */
+    --app-btn-fg:       var(--color-slate-400);
+    --app-btn-hover-bg: oklch(100% 0 0 / .06);
+    --app-btn-on-bg:    oklch(24% .08 258 / .55);
+    --app-btn-on-fg:    var(--color-indigo-300);
+
+    background-color: var(--app-card);
+    border: 1px solid var(--app-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--app-shadow);
+    /* .hero sets color:#fff — anchor it so nothing inside inherits by accident. */
+    color: var(--app-ink);
+}
+
+/* --- bright: the app's own default surface ------------------------------ */
+.preview[data-preview-theme="light"] {
+    --app-card:      #fff;
+    --app-inset:     var(--color-slate-50);
+    --app-rule:      var(--color-slate-200);
+    --app-border:    var(--color-slate-300);
+    --app-ink:       var(--color-slate-900);
+    --app-3:         var(--color-slate-500);
+    --app-avatar-bg: var(--color-slate-100);
+    --app-shadow:    var(--shadow-lg);
+
+    --app-paid-bg: var(--color-green-100); --app-paid-fg: var(--color-green-700);
+    --app-due-bg:  var(--color-amber-100); --app-due-fg:  var(--color-amber-700);
+    --app-over-bg: var(--color-red-100);   --app-over-fg: var(--color-red-700);
+
+    --app-amt-over: var(--color-red-600);
+    --app-amt-due:  var(--color-amber-700);
+    --app-amt-zero: var(--color-slate-400);
+
+    --app-btn-fg:       var(--color-slate-500);
+    --app-btn-hover-bg: var(--color-slate-50);
+    --app-btn-on-bg:    var(--color-indigo-50);
+    --app-btn-on-fg:    var(--color-indigo-700);
+}
+
+.preview-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .5rem 1rem;
+    padding: .7rem .8rem;
+    border-bottom: 1px solid var(--app-rule);
+}
+
+/* Tabs carry the same mono label treatment as a column header — they name
+   three screens, which is exactly what a col-label does elsewhere. */
+.preview-tabs {
+    display: flex;
+    align-items: center;
+    gap: .15rem;
+    min-width: 0;
+}
+
+.preview-tabs button {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: .4rem .6rem;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--app-btn-fg);
+    cursor: pointer;
+    transition: background-color var(--dur-color) var(--ease-brand),
+                color var(--dur-color) var(--ease-brand);
+}
+
+.preview-tabs button:hover { background-color: var(--app-btn-hover-bg); }
+
+.preview-tabs button[aria-selected="true"] {
+    background-color: var(--app-btn-on-bg);
+    color: var(--app-btn-on-fg);
+}
+
+.preview-panel[hidden] { display: none; }
+
+.preview-note {
+    padding: .95rem 1.25rem .35rem;
+    font-size: var(--text-sm);
+    color: var(--app-3);
+}
+
+/* Icon-only buttons in a row — geometry lifted from the compact variant:
+   p-1.5, rounded-md, gap-1, 14px lucide icons. */
+.preview-theme {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+    flex: none;
+}
+
+.preview-theme button {
+    display: grid;
+    place-items: center;
+    padding: .375rem;
+    background: none;
+    border: 0;
+    border-radius: var(--radius-md);
+    color: var(--app-btn-fg);
+    cursor: pointer;
+    transition: background-color var(--dur-color) var(--ease-brand),
+                color var(--dur-color) var(--ease-brand);
+}
+
+.preview-theme button:hover { background-color: var(--app-btn-hover-bg); }
+
+.preview-theme button[aria-pressed="true"] {
+    background-color: var(--app-btn-on-bg);
+    color: var(--app-btn-on-fg);
+}
+
+.preview-theme svg { width: 14px; height: 14px; display: block; }
+
+.preview-scroll { overflow-x: auto; }
+
+.preview table { width: 100%; min-width: 22rem; }
+
+.preview thead th {
+    padding: .7rem 1.25rem;
+    text-align: left;
+    color: var(--app-3);
+    border-bottom: 1px solid var(--app-rule);
+    font-weight: 500;
+}
+
+.preview thead th.num,
+.preview tbody td.num { text-align: right; }
+
+.preview tbody td {
+    padding: .85rem 1.25rem;
+    font-size: var(--text-sm);
+    border-bottom: 1px solid var(--app-rule);
+}
+
+.preview tbody tr:last-child td { border-bottom: 0; }
+
+.preview .person {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    color: var(--app-ink);
+}
+
+.avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    flex: none;
+    background-color: var(--app-avatar-bg);
+    border: 1px solid var(--app-rule);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    display: grid;
+    place-items: center;
+    color: var(--app-3);
+}
+
+.preview-foot {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .9rem 1.25rem;
+    border-top: 1px solid var(--app-rule);
+    background-color: var(--app-inset);
+}
+
+.preview-foot .col-label { color: var(--app-3); }
+
+.preview-foot .total {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--app-amt-over);
+}
+
+/* Amounts carry their state in colour as well as in sign. */
+.preview .amt-overdue { color: var(--app-amt-over); }
+.preview .amt-due     { color: var(--app-amt-due); }
+.preview .amt-zero    { color: var(--app-amt-zero); }
+
+/* ===========================================================================
+   Status chips
+   =========================================================================== */
+
+.chip {
+    display: inline-block;
+    padding: .2rem .5rem;
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Inside the preview the chips follow the preview's own theme. */
+.preview .chip-paid    { background-color: var(--app-paid-bg); color: var(--app-paid-fg); }
+.preview .chip-due     { background-color: var(--app-due-bg);  color: var(--app-due-fg); }
+.preview .chip-overdue { background-color: var(--app-over-bg); color: var(--app-over-fg); }
+
+/* Everywhere else they follow the page theme. */
+.chip-success { background-color: var(--success-bg); color: var(--success-fg); }
+.chip-warning { background-color: var(--warning-bg); color: var(--warning-fg); }
+.chip-danger  { background-color: var(--danger-bg);  color: var(--danger-fg); }
+.chip-accent  { background-color: var(--accent-soft-bg); color: var(--accent-soft-fg); }
+
+/* ===========================================================================
+   Feature cards — flat, hairline, no shadow.
+   =========================================================================== */
+
+.card-grid {
+    display: grid;
+    gap: 1.25rem;
+}
+
+@media (min-width: 40rem) {
+    .card-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.card {
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    transition: border-color var(--dur-ui) var(--ease-brand);
+}
+
+.card:hover { border-color: var(--border-default); }
+.card .eyebrow { color: var(--accent-text); }
+.card h3 { font-size: var(--text-xl); }
+
+.card p {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.65;
+}
+
+.card-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.field {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    background-color: var(--surface-inset);
+    border-radius: var(--radius-md);
+    padding: .25rem .5rem;
+}
+
+/* ===========================================================================
+   Pricing — a comparison table, not three cards.
+
+   The system's rule is that anything read *down a column* is mono and
+   tabular. Three prices beside three member limits is the definition of that,
+   so pricing gets the same treatment the app gives money everywhere else.
+   =========================================================================== */
+
+.price-wrap {
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+}
+
+.price-scroll { overflow-x: auto; }
+
+.price-table {
+    width: 100%;
+    min-width: 34rem;
+}
+
+.price-table thead th {
+    padding: .9rem 1.25rem;
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    background-color: var(--surface-inset);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.price-table th.num, .price-table td.num,
+.price-table th.act, .price-table td.act { text-align: right; }
+
+.price-table tbody td {
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: middle;
+}
+
+.price-table tbody tr:last-child td { border-bottom: 0; }
+
+.price-table .plan {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: -.02em;
+}
+
+.price-table .limit {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+}
+
+.price-table .amount {
+    font-size: var(--text-xl);
+    font-weight: 500;
+}
+
+/* The recommended row is marked by an accent stripe on the row itself — the
+   one place the accent is used as a surface outside a button. */
+.price-table tr.featured { background-color: var(--accent-soft-bg); }
+.price-table tr.featured td:first-child { box-shadow: inset 3px 0 0 var(--action-primary); }
+.price-table tr.featured .amount { color: var(--accent-soft-fg); }
+
+.price-notes {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
     margin-top: 1.5rem;
 }
 
-[lang="pl"]:not(html), [lang="en"]:not(html) {
-    display: none;
+.price-notes .note {
+    font-size: var(--text-sm);
+    font-weight: 500;
 }
 
-body.lang-pl [lang="pl"] {
-    display: block;
+.price-notes .fine {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    line-height: 1.7;
+    max-width: 70ch;
 }
 
-body.lang-en [lang="en"] {
-    display: block;
-}
+/* ===========================================================================
+   Sign-up
+   =========================================================================== */
 
-/* Specific display types for shown elements */
-body.lang-pl span[lang="pl"],
-body.lang-en span[lang="en"],
-body.lang-pl a[lang="pl"],
-body.lang-en a[lang="en"] {
-    display: inline;
-}
-
-body.lang-pl .badge[lang="pl"],
-body.lang-en .badge[lang="en"],
-body.lang-pl a.btn[lang="pl"],
-body.lang-en a.btn[lang="en"] {
-    display: inline-block;
-}
-
-body.lang-pl button[lang="pl"],
-body.lang-en button[lang="en"],
-body.lang-pl input[lang="pl"],
-body.lang-en input[lang="en"] {
-    display: inline-block;
-}
-
-body.lang-pl .feature-card h3[lang="pl"],
-body.lang-en .feature-card h3[lang="en"] {
-    display: flex;
-}
-
-.newsletter-form {
-    max-width: 500px;
-    margin: 0 auto;
+.signup {
+    max-width: 34rem;
+    margin-inline: auto;
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    padding: clamp(1.5rem, 4vw, 2.25rem);
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.form-input {
+.signup .eyebrow { color: var(--text-tertiary); }
+.signup h2 { font-size: var(--text-2xl); }
+
+.signup > p {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    line-height: 1.65;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    margin-top: .25rem;
+}
+
+.field-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    display: block;
+    margin-bottom: .4rem;
+}
+
+.input {
     width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
+    padding: .7rem .85rem;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    background-color: var(--surface-card);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--dur-color) var(--ease-brand);
 }
 
-.success-message {
-    max-width: 500px;
-    margin: 1rem auto 0;
-    background-color: #d1fae5;
-    color: #065f46;
-    padding: 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
+.input::placeholder { color: var(--text-tertiary); }
+
+.input:focus {
+    outline: 3px solid oklch(52% .19 258 / .32);
+    outline-offset: 1px;
+    border-color: var(--action-primary);
 }
 
-.error-message {
-    max-width: 500px;
-    margin: 1rem auto 0;
-    background-color: #fee2e2;
-    color: #991b1b;
-    padding: 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
+.form-note {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
 }
 
+/* Opt-in row. accent-color paints the native control with the brand accent,
+   so the box needs no rebuilding to stay on-system. */
+.check {
+    display: flex;
+    align-items: flex-start;
+    gap: .6rem;
+    font-size: var(--text-sm);
+    line-height: 1.55;
+    color: var(--text-secondary);
+    cursor: pointer;
+    margin-top: .25rem;
+}
 
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
+.check input[type="checkbox"] {
+    accent-color: var(--action-primary);
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0;
+    flex: none;
+    /* Nudged down to sit on the first line's baseline rather than its box top. */
+    margin-top: .12rem;
+    cursor: pointer;
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    padding: .9rem 1rem;
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+.banner-success { background-color: var(--success-bg); color: var(--success-fg); }
+.banner-danger  { background-color: var(--danger-bg);  color: var(--danger-fg); }
+
+.banner[hidden] { display: none; }
+
+/* ===========================================================================
+   Footer — light, hairline rule. Identifiers (NIP, REGON, phone) are set in
+   mono, because the system's split is by what the reader does with the text:
+   language in Space Grotesk, anything compared or copied in Plex Mono.
+   =========================================================================== */
+
+footer {
+    border-top: 1px solid var(--border-subtle);
+    padding-block: 3rem 2.5rem;
+    background-color: var(--surface-card);
+}
+
+.footer-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+@media (min-width: 48rem) {
+    .footer-grid {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 3rem;
     }
 }
 
-.legal {
-    padding: 3rem 0 5rem;
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+    align-items: flex-start;
 }
 
-.legal .container {
-    max-width: 800px;
+.footer-brand .lockup { font-size: 24px; }
+
+.footer-tagline {
+    font-size: var(--text-sm);
+    color: var(--text-tertiary);
+    max-width: 26ch;
 }
+
+.footer-nav,
+.footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.footer-nav .col-label,
+.footer-contact .col-label {
+    color: var(--text-tertiary);
+    margin-bottom: .2rem;
+}
+
+.footer-nav a {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+.footer-nav a:hover { color: var(--accent-text); }
+
+.footer-contact a { font-size: var(--text-sm); }
+
+.footer-legal {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.footer-legal p {
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+    line-height: 1.7;
+}
+
+.footer-legal .data-num { font-size: 11px; }
+
+/* ===========================================================================
+   Legal pages
+   =========================================================================== */
+
+.legal {
+    padding-block: 3rem 5rem;
+}
+
+.legal .container { max-width: var(--container-prose); }
+
+.legal-back {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+}
+
+.legal-back:hover { color: var(--accent-text); }
 
 .legal h1 {
-    font-size: 2.25rem;
-    margin-bottom: 0.5rem;
+    font-size: var(--text-section);
+    margin-bottom: .5rem;
 }
 
 .legal .legal-updated {
-    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
     margin-bottom: 2.5rem;
 }
 
 .legal h2 {
-    font-size: 1.35rem;
-    margin: 2.25rem 0 0.75rem;
+    font-size: var(--text-xl);
+    margin: 2.5rem 0 .75rem;
 }
 
 .legal h3 {
-    font-size: 1.1rem;
-    margin: 1.5rem 0 0.5rem;
+    font-size: var(--text-lg);
+    margin: 1.75rem 0 .5rem;
 }
 
-.legal p {
-    margin-bottom: 1rem;
+.legal p,
+.legal li {
+    color: var(--text-secondary);
+    line-height: 1.7;
 }
+
+.legal p { margin-bottom: 1rem; }
 
 .legal ol,
 .legal ul {
-    margin: 0 0 1rem 1.5rem;
+    margin: 0 0 1rem 1.25rem;
+    padding-left: .5rem;
 }
 
-.legal li {
-    margin-bottom: 0.5rem;
+.legal li { margin-bottom: .5rem; }
+
+.legal strong { color: var(--text-primary); }
+
+.legal table {
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: var(--text-sm);
 }
 
-.legal a {
-    color: var(--primary-color);
+.legal th,
+.legal td {
+    padding: .6rem .75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-secondary);
 }
 
-.legal .legal-back {
-    display: inline-block;
-    margin-bottom: 2rem;
-    color: var(--primary-color);
-    font-weight: 600;
-    text-decoration: none;
+.legal th { color: var(--text-primary); font-weight: 600; }
+
+/* ===========================================================================
+   Bilingual display.
+
+   Only the inactive language is hidden. Showing the active one by setting
+   `display` back on it would force a rule per element type (inline /
+   inline-block / flex …) and fight each element's own layout.
+   =========================================================================== */
+
+body.lang-pl [lang="en"],
+body.lang-en [lang="pl"] { display: none; }
+
+/* ===========================================================================
+   Motion — one curve, short travel. Things arrive and settle.
+   =========================================================================== */
+
+@keyframes rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
 }
 
-.legal .legal-back:hover {
-    text-decoration: underline;
+.rise { animation: rise var(--dur-panel) var(--ease-brand) both; }
+.rise-1 { animation-delay: 40ms; }
+.rise-2 { animation-delay: 100ms; }
+.rise-3 { animation-delay: 160ms; }
+
+/* Reduced-motion users lose the travel, nothing else. */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

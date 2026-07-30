@@ -5,20 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regulamin | Terms &amp; Conditions - ClubHQ.cloud</title>
     <meta name="description" content="Regulamin świadczenia usług aplikacji ClubHQ. Terms and Conditions for the ClubHQ application.">
+    <meta name="theme-color" content="#1a1d29">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preload" href="fonts/space-grotesk-300-700-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body class="lang-pl">
-    <header>
-        <div class="container" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-            <a href="index.html" class="logo">
-                <img src="images/logo.png" alt="ClubHQ.cloud Icon" height="60">
-                <span class="logo-text">ClubHQ.cloud</span>
-            </a>
-            <div class="lang-switch">
-                <button onclick="setLang('pl')" class="lang-btn active" id="btn-pl">🇵🇱 PL</button>
-                <button onclick="setLang('en')" class="lang-btn" id="btn-en">🇬🇧 EN</button>
+    <header class="site-header">
+        <div class="container">
+            <div class="topbar">
+                <a href="index.html" class="lockup tone-auto">
+                    <svg viewBox="0 0 100 100" role="img" aria-label="ClubHQ">
+                        <rect x="20" y="28" width="15" height="52" rx="3.5" fill="currentColor"/>
+                        <rect x="65" y="20" width="15" height="52" rx="3.5" fill="var(--chq-mark-accent)"/>
+                        <path d="M33 56.1 L66 38.5 L66 53.5 L33 71.1 Z" fill="currentColor"/>
+                    </svg>
+                    <span class="lockup-word">Club<span>HQ</span></span>
+                </a>
+
+                <div class="lang-switch">
+                    <button type="button" class="lang-btn" id="btn-pl" aria-pressed="true">PL</button>
+                    <button type="button" class="lang-btn" id="btn-en" aria-pressed="false">EN</button>
+                </div>
             </div>
         </div>
     </header>
@@ -238,7 +247,45 @@
 
     <footer>
         <div class="container">
-            <p class="footer-copyright">&copy; 2026 ClubHQ.cloud. All rights reserved.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="lockup tone-auto">
+                        <svg viewBox="0 0 100 100" role="img" aria-label="ClubHQ">
+                            <rect x="20" y="28" width="15" height="52" rx="3.5" fill="currentColor"/>
+                            <rect x="65" y="20" width="15" height="52" rx="3.5" fill="var(--chq-mark-accent)"/>
+                            <path d="M33 56.1 L66 38.5 L66 53.5 L33 71.1 Z" fill="currentColor"/>
+                        </svg>
+                        <span class="lockup-word">Club<span>HQ</span></span>
+                    </a>
+                    <p class="footer-tagline" lang="pl">Zarządzanie klubem sportowym — składki, grupy, treningi.</p>
+                    <p class="footer-tagline" lang="en">Sports club management — fees, groups, training.</p>
+                </div>
+
+                <nav class="footer-nav">
+                    <p class="col-label" lang="pl">Serwis</p>
+                    <p class="col-label" lang="en">Site</p>
+                    <a href="index.html#pricing" lang="pl">Cennik</a>
+                    <a href="index.html#pricing" lang="en">Pricing</a>
+                    <a href="regulamin.html" lang="pl">Regulamin</a>
+                    <a href="regulamin.html" lang="en">Terms &amp; Conditions</a>
+                    <a href="polityka-prywatnosci.html" lang="pl">Polityka Prywatności</a>
+                    <a href="polityka-prywatnosci.html" lang="en">Privacy Policy</a>
+                </nav>
+
+                <div class="footer-contact">
+                    <p class="col-label" lang="pl">Kontakt</p>
+                    <p class="col-label" lang="en">Contact</p>
+                    <a href="mailto:kontakt@clubhq.cloud" lang="pl">kontakt@clubhq.cloud</a>
+                    <a href="mailto:contact@clubhq.cloud" lang="en">contact@clubhq.cloud</a>
+                    <a class="data-num" href="tel:+48515279851">+48 515 279 851</a>
+                </div>
+            </div>
+
+            <div class="footer-legal">
+                <p lang="pl">Michał Wójtowicz, ClubHQ, ul. Łosiowa 87, 43-300 Bielsko-Biała &middot; NIP <span class="data-num">6762446401</span> &middot; REGON <span class="data-num">361062286</span></p>
+                <p lang="en">Michał Wójtowicz, ClubHQ, ul. Łosiowa 87, 43-300 Bielsko-Biała, Poland &middot; NIP <span class="data-num">6762446401</span> &middot; REGON <span class="data-num">361062286</span></p>
+                <p>&copy; 2026 ClubHQ.cloud</p>
+            </div>
         </div>
     </footer>
 </body>
