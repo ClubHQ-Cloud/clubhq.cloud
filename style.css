@@ -402,6 +402,16 @@ img {
     white-space: nowrap;
 }
 
+/* Under 360px the bar cannot hold the mark, the wordmark, the language switch
+   and the login button at once, so the top bar's lockup falls back to the mark
+   alone — the svg carries aria-label="ClubHQ", so the link keeps its name. The
+   footer lockup has the width to spare and is left whole. */
+.topbar .lockup-word { display: none; }
+
+@media (min-width: 22.5rem) {
+    .topbar .lockup-word { display: inline; }
+}
+
 .lockup-word span { color: var(--chq-mark-accent); }
 
 .tone-auto { color: var(--text-primary); --chq-mark-accent: var(--accent-text); }
@@ -416,13 +426,38 @@ img {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: .75rem;
     padding-block: 1.5rem;
 }
 
 .site-header {
     border-bottom: 1px solid var(--border-subtle);
     background-color: var(--surface-card);
+}
+
+/* Everything that sits opposite the lockup: the language switch, then the way
+   into the app. The login button is the only call to action in the bar, so it
+   goes last — furthest right, where the eye lands after the copy.
+
+   The gap sets the button apart from the language switch rather than letting
+   the two read as one control group: they do unrelated jobs, and the switch is
+   quiet text against a bordered call to action.
+
+   Three items on one line is a tight fit on a 360px phone once the label is
+   the Polish "Zaloguj się", so the bar runs on narrower gaps and a compact
+   button and only loosens up once there is room for it. */
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+}
+
+.topbar-actions .btn { padding-inline: .75rem; }
+
+@media (min-width: 30rem) {
+    .topbar { gap: 1rem; }
+    .topbar-actions { gap: 1.25rem; }
+    .topbar-actions .btn { padding-inline: .9rem; }
 }
 
 .lang-switch {
@@ -566,6 +601,19 @@ img {
 .btn-primary:disabled {
     background-color: var(--color-slate-400);
     cursor: default;
+}
+
+/* The ghost pair: same shape, one for the ink hero and one for light surfaces
+   like the legal pages' header. */
+.btn-ghost {
+    background: none;
+    color: var(--text-primary);
+    border-color: var(--border-subtle);
+}
+
+.btn-ghost:hover {
+    background-color: var(--surface-inset);
+    border-color: var(--border-default);
 }
 
 .btn-ghost-dark {
