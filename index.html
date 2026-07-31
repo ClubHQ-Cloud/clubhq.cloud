@@ -529,15 +529,15 @@
            visitor here has no ClubHQ session — and is rate-limited at the API
            Gateway route instead.
 
-           The host follows where this page is served from: the production API only
-           answers the live site, and anywhere else (a local preview, a branch
-           deploy) talks to dev — otherwise every test signup would land in the real
-           launch list. Both origins have to be listed in the API's CORS
-           configuration; see var.marketing_origins in terraform/variables.tf. */
-        const IS_PRODUCTION_SITE = ['clubhq.cloud', 'www.clubhq.cloud'].includes(location.hostname);
-        const LAUNCH_LIST_ENDPOINT = IS_PRODUCTION_SITE
-            ? 'https://api.clubhq.cloud/launch-list/contacts'
-            : 'https://api.dev.clubhq.cloud/launch-list/contacts';
+           POINTED AT DEV ON PURPOSE, including from the live site: `dev` is the only
+           environment that exists today, so it is where real pre-launch signups go
+           for now. Switch this to api.clubhq.cloud the moment a production stack is
+           deployed — and move the contacts already collected, because they live in
+           dev's SES account until then.
+
+           Whichever host this is, the site's origin has to be on that API's CORS
+           allow-list — see var.marketing_origins in terraform/variables.tf. */
+        const LAUNCH_LIST_ENDPOINT = 'https://api.dev.clubhq.cloud/launch-list/contacts';
 
         document.getElementById('newsletter-form').addEventListener('submit', function (e) {
             e.preventDefault();
