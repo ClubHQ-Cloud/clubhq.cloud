@@ -423,8 +423,6 @@
                     <p lang="en">We're putting the final touches to the app. Leave your email — we'll write when ClubHQ is ready, and nothing else.</p>
 
                     <form class="form" id="newsletter-form" novalidate>
-                        <input type="hidden" name="access_key" value="fcbcb80f-4c03-4b32-9dfa-8d7bd393c57d">
-
                         <div>
                             <label class="field-label" for="nl-name-pl" lang="pl">Imię — opcjonalnie</label>
                             <label class="field-label" for="nl-name-en" lang="en">Name — optional</label>
@@ -521,6 +519,26 @@
         let retryCount = 0;
         const MAX_RETRIES = 5;
 
+        /* The launch list ---------------------------------------------------------
+           Posts to ClubHQ's own API, which adds the address to the SES contact list
+           the launch email will be sent from (see api/src/launchList/ in the app
+           repo). It used to go to a third-party form service; the address now lands
+           in the same AWS account as the mail, with SES handling unsubscribes.
+
+           No key travels with this request. The endpoint is public by necessity — a
+           visitor here has no ClubHQ session — and is rate-limited at the API
+           Gateway route instead.
+
+           The host follows where this page is served from: the production API only
+           answers the live site, and anywhere else (a local preview, a branch
+           deploy) talks to dev — otherwise every test signup would land in the real
+           launch list. Both origins have to be listed in the API's CORS
+           configuration; see var.marketing_origins in terraform/variables.tf. */
+        const IS_PRODUCTION_SITE = ['clubhq.cloud', 'www.clubhq.cloud'].includes(location.hostname);
+        const LAUNCH_LIST_ENDPOINT = IS_PRODUCTION_SITE
+            ? 'https://api.clubhq.cloud/launch-list/contacts'
+            : 'https://api.dev.clubhq.cloud/launch-list/contacts';
+
         document.getElementById('newsletter-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -535,23 +553,19 @@
             }
 
             const form = this;
-            const formData = new FormData();
 
-            // Only add fields that belong to the current language or have no lang attribute
-            form.querySelectorAll('input, select, textarea').forEach(input => {
-                const lang = input.getAttribute('lang');
-                if (lang && lang !== currentLang) return;
+            // The name field is duplicated per language and the stylesheet hides the
+            // inactive one, so read the copy the visitor can actually see.
+            const nameInput = form.querySelector('input[name="name"][lang="' + currentLang + '"]');
 
-                // A checkbox's value is the same whether or not it is ticked, so the
+            const payload = {
+                email: form.querySelector('#nl-email').value.trim(),
+                name: nameInput ? nameInput.value.trim() : '',
+                locale: currentLang,
+                // A checkbox posts the same value whether or not it is ticked, so the
                 // opt-in has to be sent as its checked state.
-                if (input.type === 'checkbox') {
-                    formData.append(input.name, input.checked ? 'yes' : 'no');
-                } else {
-                    formData.append(input.name, input.value);
-                }
-            });
-
-            formData.append('language', currentLang);
+                featureUpdates: form.querySelector('#nl-updates').checked
+            };
 
             // The two submit buttons are language variants; pick the visible one so
             // the pending label lands on the button the visitor can actually see.
@@ -565,20 +579,23 @@
             submitBtn.disabled = true;
             submitBtn.innerText = currentLang === 'pl' ? 'Wysyłanie...' : 'Sending...';
 
-            fetch('https://api.web3forms.com/submit', {
+            fetch(LAUNCH_LIST_ENDPOINT, {
                 method: 'POST',
-                body: formData
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
             })
-            .then(async (response) => {
-                if (response.status === 200) {
-                    // Show thank you message
+            .then(response => {
+                // 201 on a new address, and also on one already on the list — the API
+                // answers the same either way on purpose, so nobody can use this form
+                // to find out who signed up.
+                if (response.ok) {
                     form.style.display = 'none';
                     thankYou.hidden = false;
                 } else {
                     handleError();
                 }
             })
-            .catch(error => {
+            .catch(() => {
                 handleError();
             })
             .finally(() => {
