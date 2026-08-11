@@ -1019,7 +1019,9 @@ img {
 
 .plan-table {
     width: 100%;
-    min-width: 44rem;
+    /* Four columns now — the feature label plus three plans. Below this the wrapper
+       scrolls horizontally rather than letting the columns crush together. */
+    min-width: 58rem;
     border-collapse: collapse;
 }
 
