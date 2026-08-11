@@ -52,8 +52,8 @@
                     <p class="lede rise rise-2" lang="en">Fees, groups, training and attendance in one place. ClubHQ takes the admin off coaches' shoulders — you get on with the sport.</p>
 
                     <div class="hero-actions rise rise-3">
-                        <a href="#signup" class="btn btn-primary" lang="pl">Powiadom mnie o starcie</a>
-                        <a href="#signup" class="btn btn-primary" lang="en">Notify me at launch</a>
+                        <a href="https://app.clubhq.cloud" class="btn btn-primary" lang="pl">Załóż klub za darmo</a>
+                        <a href="https://app.clubhq.cloud" class="btn btn-primary" lang="en">Set up your club</a>
                         <a href="#pricing" class="btn btn-ghost-dark" lang="pl">Zobacz cennik</a>
                         <a href="#pricing" class="btn btn-ghost-dark" lang="en">See pricing</a>
                     </div>
@@ -492,61 +492,6 @@
             </div>
         </section>
 
-        <!-- ===================== SIGN-UP ===================== -->
-        <section class="section" id="signup">
-            <div class="container">
-                <div class="signup">
-                    <p class="eyebrow" lang="pl">Lista startowa</p>
-                    <p class="eyebrow" lang="en">Launch list</p>
-                    <h2 lang="pl">Bądź pierwszym klubem, który przetestuje ClubHQ</h2>
-                    <h2 lang="en">Be the first club to try ClubHQ</h2>
-                    <p lang="pl">Trwają ostatnie prace nad aplikacją. Zostaw e-mail — napiszemy, kiedy ClubHQ będzie gotowy, i nic poza tym.</p>
-                    <p lang="en">We're putting the final touches to the app. Leave your email — we'll write when ClubHQ is ready, and nothing else.</p>
-
-                    <form class="form" id="newsletter-form" novalidate>
-                        <div>
-                            <label class="field-label" for="nl-name-pl" lang="pl">Imię — opcjonalnie</label>
-                            <label class="field-label" for="nl-name-en" lang="en">Name — optional</label>
-                            <input class="input" type="text" id="nl-name-pl" name="name" autocomplete="name" lang="pl">
-                            <input class="input" type="text" id="nl-name-en" name="name" autocomplete="name" lang="en">
-                        </div>
-
-                        <div>
-                            <label class="field-label" for="nl-email" lang="pl">Adres e-mail</label>
-                            <label class="field-label" for="nl-email" lang="en">Email address</label>
-                            <input class="input" type="email" id="nl-email" name="email" autocomplete="email" required placeholder="trener@twojklub.pl">
-                        </div>
-
-                        <label class="check" for="nl-updates">
-                            <input type="checkbox" id="nl-updates" name="feature_updates">
-                            <span lang="pl">Chcę też dostawać wiadomości o nowych funkcjach ClubHQ, nie tylko o premierze.</span>
-                            <span lang="en">Also send me news about new ClubHQ features, not just the launch.</span>
-                        </label>
-
-                        <button type="submit" class="btn btn-primary btn-block" lang="pl">Zapisz mnie</button>
-                        <button type="submit" class="btn btn-primary btn-block" lang="en">Sign me up</button>
-
-                        <p class="form-note" lang="pl">Jeden e-mail o premierze. Możesz wypisać się w każdej chwili.</p>
-                        <p class="form-note" lang="en">One email at launch. Unsubscribe any time.</p>
-                    </form>
-
-                    <div id="thank-you-message" class="banner banner-success" hidden>
-                        <p lang="pl">Zapisane. Napiszemy na podany adres, kiedy ClubHQ wystartuje.</p>
-                        <p lang="en">Saved. We'll write to that address when ClubHQ launches.</p>
-                    </div>
-
-                    <div id="error-message" class="banner banner-danger" hidden>
-                        <p lang="pl">Nie udało się zapisać adresu. Sprawdź połączenie i spróbuj ponownie.</p>
-                        <p lang="en">We couldn't save that address. Check your connection and try again.</p>
-                    </div>
-
-                    <div id="limit-message" class="banner banner-danger" hidden>
-                        <p lang="pl">Osiągnięto limit prób. Spróbuj później.</p>
-                        <p lang="en">Retry limit reached. Please try again later.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <!-- ===================== FOOTER ===================== -->
@@ -596,105 +541,5 @@
         </div>
     </footer>
 
-    <script>
-        let retryCount = 0;
-        const MAX_RETRIES = 5;
-
-        /* The launch list ---------------------------------------------------------
-           Posts to ClubHQ's own API, which adds the address to the SES contact list
-           the launch email will be sent from (see api/src/launchList/ in the app
-           repo). It used to go to a third-party form service; the address now lands
-           in the same AWS account as the mail, with SES handling unsubscribes.
-
-           No key travels with this request. The endpoint is public by necessity — a
-           visitor here has no ClubHQ session — and is rate-limited at the API
-           Gateway route instead.
-
-           PRODUCTION. SESv2 allows exactly one contact list per AWS account per
-           Region, and production is the environment that owns it
-           (ses_contact_list_enabled in terragrunt/prod) — dev now answers this route
-           with "the signup list is not available right now", so pointing here is not
-           a preference, it is the only host that can accept a signup.
-
-           The site's origin has to be on that API's CORS allow-list — see
-           var.marketing_origins in terraform/variables.tf, where production carries
-           the two real hostnames and no localhost. */
-        const LAUNCH_LIST_ENDPOINT = 'https://api.clubhq.cloud/launch-list/contacts';
-
-        document.getElementById('newsletter-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const thankYou = document.getElementById('thank-you-message');
-            const errorMsg = document.getElementById('error-message');
-            const limitMsg = document.getElementById('limit-message');
-
-            if (retryCount >= MAX_RETRIES) {
-                errorMsg.hidden = true;
-                limitMsg.hidden = false;
-                return;
-            }
-
-            const form = this;
-
-            // The name field is duplicated per language and the stylesheet hides the
-            // inactive one, so read the copy the visitor can actually see.
-            const nameInput = form.querySelector('input[name="name"][lang="' + currentLang + '"]');
-
-            const payload = {
-                email: form.querySelector('#nl-email').value.trim(),
-                name: nameInput ? nameInput.value.trim() : '',
-                locale: currentLang,
-                // A checkbox posts the same value whether or not it is ticked, so the
-                // opt-in has to be sent as its checked state.
-                featureUpdates: form.querySelector('#nl-updates').checked
-            };
-
-            // The two submit buttons are language variants; pick the visible one so
-            // the pending label lands on the button the visitor can actually see.
-            const submitBtn = form.querySelector('button[type="submit"][lang="' + currentLang + '"]');
-            const originalBtnText = submitBtn.innerText;
-
-            // Clear previous errors
-            errorMsg.hidden = true;
-            limitMsg.hidden = true;
-
-            submitBtn.disabled = true;
-            submitBtn.innerText = currentLang === 'pl' ? 'Wysyłanie...' : 'Sending...';
-
-            fetch(LAUNCH_LIST_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                // 201 on a new address, and also on one already on the list — the API
-                // answers the same either way on purpose, so nobody can use this form
-                // to find out who signed up.
-                if (response.ok) {
-                    form.style.display = 'none';
-                    thankYou.hidden = false;
-                } else {
-                    handleError();
-                }
-            })
-            .catch(() => {
-                handleError();
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerText = originalBtnText;
-            });
-
-            function handleError() {
-                retryCount++;
-                if (retryCount >= MAX_RETRIES) {
-                    limitMsg.hidden = false;
-                    submitBtn.disabled = true;
-                } else {
-                    errorMsg.hidden = false;
-                }
-            }
-        });
-    </script>
 </body>
 </html>
