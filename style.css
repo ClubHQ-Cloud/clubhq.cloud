@@ -1007,6 +1007,159 @@ img {
 .price-table tr.featured td:first-child { box-shadow: inset 3px 0 0 var(--action-primary); }
 .price-table tr.featured .amount { color: var(--accent-soft-fg); }
 
+/* ---------------------------------------------------------------------------
+   Plan comparison
+   The table IS the comparison: one column per plan, one row per capability, so
+   the difference between the two plans is read down a column rather than
+   reconstructed from two separate feature lists. The AI Boost column carries
+   the accent as a surface for its whole height — the same "accent as a
+   surface only here" exception the old featured row had, moved from a row to
+   a column because that is the axis that now means something.
+   --------------------------------------------------------------------------- */
+
+.plan-table {
+    width: 100%;
+    min-width: 44rem;
+    border-collapse: collapse;
+}
+
+.plan-table thead th {
+    padding: 1.25rem;
+    text-align: left;
+    vertical-align: bottom;
+    background-color: var(--surface-inset);
+    border-bottom: 1px solid var(--border-subtle);
+    font-weight: 500;
+}
+
+/* Each plan header stacks name / price / unit / who it covers. */
+.plan-table .plan-col { text-align: center; }
+
+.plan-table .plan-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: -.02em;
+    color: var(--text-primary);
+}
+
+.plan-table .plan-col .amount {
+    display: block;
+    margin-top: .5rem;
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    line-height: 1.1;
+}
+
+.plan-table .per {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--text-tertiary);
+}
+
+.plan-table .plan-for {
+    display: block;
+    margin-top: .35rem;
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+}
+
+.plan-table tbody th,
+.plan-table tfoot th {
+    padding: .95rem 1.25rem;
+    text-align: left;
+    font-weight: 500;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-subtle);
+    max-width: 30rem;
+}
+
+.plan-table tbody td,
+.plan-table tfoot td {
+    padding: .95rem 1.25rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: middle;
+}
+
+/* The two AI-only rows carry a short line of explanation, because "AI
+   assistant" on its own does not tell a coach what changes on a Sunday
+   evening. Everything above them is self-evident and gets no note. */
+.plan-table .row-note {
+    display: block;
+    margin-top: .3rem;
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 46ch;
+}
+
+.plan-table .row-new th { padding-top: 1.15rem; padding-bottom: 1.15rem; }
+
+/* Keeps "+30 zł" and the two CTA buttons on one line — these cells are narrow by
+   design and a wrapped price reads as two numbers. */
+.plan-table .mark { white-space: nowrap; }
+
+/* Each feature label carries one span per language; making them block keeps the
+   explanatory note underneath rather than inline after it. */
+.plan-table tbody th > span[lang] { display: block; }
+
+.plan-table .tick {
+    color: var(--success-fg);
+    font-size: var(--text-lg);
+    line-height: 1;
+}
+
+.plan-table .dash {
+    color: var(--text-tertiary);
+    font-size: var(--text-lg);
+    line-height: 1;
+}
+
+/* The accent column. `featured` is on every cell rather than a column element
+   because a <col> cannot paint over the cells' own borders. */
+.plan-table .featured { background-color: var(--accent-soft-bg); }
+.plan-table thead th.featured .plan-name,
+.plan-table thead th.featured .amount { color: var(--accent-soft-fg); }
+
+.plan-table tfoot th,
+.plan-table tfoot td {
+    border-bottom: 0;
+    border-top: 1px solid var(--border-default);
+}
+
+.plan-table tfoot .amount {
+    font-size: var(--text-base);
+    font-weight: 500;
+}
+
+.plan-table tfoot .cta-row th,
+.plan-table tfoot .cta-row td { border-top: 0; padding-top: 0; }
+
+/* Screen-reader-only, so a ✓ is announced as what it means. The site's own
+   language switch hides the inactive copy with display:none, which layers over
+   this correctly: the wrong language is gone, the right one is unseen but read. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 40rem) {
+    .plan-table .row-note { display: none; }
+}
+
 .price-notes {
     display: flex;
     flex-direction: column;

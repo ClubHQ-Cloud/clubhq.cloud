@@ -35,8 +35,8 @@
                         <button type="button" class="lang-btn" id="btn-en" aria-pressed="false">EN</button>
                     </div>
 
-                    <a href="https://app.dev.clubhq.cloud" class="btn btn-sm btn-ghost-dark" lang="pl">Zaloguj się</a>
-                    <a href="https://app.dev.clubhq.cloud" class="btn btn-sm btn-ghost-dark" lang="en">Log in</a>
+                    <a href="https://app.clubhq.cloud" class="btn btn-sm btn-ghost-dark" lang="pl">Zaloguj się</a>
+                    <a href="https://app.clubhq.cloud" class="btn btn-sm btn-ghost-dark" lang="en">Log in</a>
                 </div>
             </div>
 
@@ -341,68 +341,149 @@
                 <div class="section-head">
                     <p class="eyebrow" lang="pl">Cennik</p>
                     <p class="eyebrow" lang="en">Pricing</p>
-                    <h2 lang="pl">Jeden abonament, dopasowany do wielkości klubu</h2>
-                    <h2 lang="en">One subscription, sized to your club</h2>
-                    <p lang="pl">Bez opłat wdrożeniowych i bez prowizji od składek. Płacisz za liczbę członków, nie za funkcje.</p>
-                    <p lang="en">No setup fee and no commission on fees. You pay for member count, not for features.</p>
+                    <h2 lang="pl">Dwa plany. Komplet funkcji w obu.</h2>
+                    <h2 lang="en">Two plans. The whole app in both.</h2>
+                    <p lang="pl">Cena obejmuje 50 członków klubu. Każde kolejne 50 to +30 zł miesięcznie. Bez opłat wdrożeniowych i bez prowizji od składek.</p>
+                    <p lang="en">The price covers 50 club members. Every next 50 is +30 zł a month. No setup fee and no commission on fees.</p>
                 </div>
 
                 <div class="price-wrap">
                     <div class="price-scroll">
-                        <table class="price-table">
+                        <table class="plan-table">
+                            <caption class="sr-only">
+                                <span lang="pl">Porównanie planów Standard i AI Boost</span>
+                                <span lang="en">Comparison of the Standard and AI Boost plans</span>
+                            </caption>
                             <thead>
                                 <tr>
-                                    <th class="col-label" lang="pl">Plan</th>
-                                    <th class="col-label" lang="en">Plan</th>
-                                    <th class="col-label" lang="pl">Członkowie</th>
-                                    <th class="col-label" lang="en">Members</th>
-                                    <th class="col-label num" lang="pl">Cena / mies.</th>
-                                    <th class="col-label num" lang="en">Price / mo.</th>
-                                    <th class="col-label act"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="plan">Starter</span></td>
-                                    <td class="limit" lang="pl">do 50 członków</td>
-                                    <td class="limit" lang="en">up to 50 members</td>
-                                    <td class="num"><span class="amount data-num">100 zł</span></td>
-                                    <td class="act">
-                                        <a href="#signup" class="btn btn-sm btn-primary" lang="pl">Wybierz</a>
-                                        <a href="#signup" class="btn btn-sm btn-primary" lang="en">Choose</a>
-                                    </td>
-                                </tr>
-                                <tr class="featured">
-                                    <td>
-                                        <span class="plan">Standard
+                                    <th scope="col">
+                                        <span class="col-label" lang="pl">Co dostajesz</span>
+                                        <span class="col-label" lang="en">What you get</span>
+                                    </th>
+                                    <th scope="col" class="plan-col">
+                                        <span class="plan-name">Standard</span>
+                                        <span class="amount data-num">130 zł</span>
+                                        <span class="per" lang="pl">/ mies.</span>
+                                        <span class="per" lang="en">/ mo.</span>
+                                        <span class="plan-for" lang="pl">za 50 członków</span>
+                                        <span class="plan-for" lang="en">for 50 members</span>
+                                    </th>
+                                    <th scope="col" class="plan-col featured">
+                                        <span class="plan-name">AI Boost
                                             <span class="chip chip-accent" lang="pl">Polecany</span>
                                             <span class="chip chip-accent" lang="en">Recommended</span>
                                         </span>
-                                    </td>
-                                    <td class="limit" lang="pl">do 100 członków</td>
-                                    <td class="limit" lang="en">up to 100 members</td>
-                                    <td class="num"><span class="amount data-num">150 zł</span></td>
-                                    <td class="act">
-                                        <a href="#signup" class="btn btn-sm btn-primary" lang="pl">Wybierz</a>
-                                        <a href="#signup" class="btn btn-sm btn-primary" lang="en">Choose</a>
-                                    </td>
+                                        <span class="amount data-num">200 zł</span>
+                                        <span class="per" lang="pl">/ mies.</span>
+                                        <span class="per" lang="en">/ mo.</span>
+                                        <span class="plan-for" lang="pl">za 50 członków</span>
+                                        <span class="plan-for" lang="en">for 50 members</span>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <th scope="row" lang="pl">Profil klubu, dane do rozliczeń i powiadomienia</th>
+                                    <th scope="row" lang="en">Club profile, billing details and notification settings</th>
+                                    <td class="mark"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie Standard</span><span class="sr-only" lang="en">In Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
                                 </tr>
                                 <tr>
-                                    <td><span class="plan">Pro</span></td>
-                                    <td class="limit" lang="pl">do 200 członków</td>
-                                    <td class="limit" lang="en">up to 200 members</td>
-                                    <td class="num"><span class="amount data-num">200 zł</span></td>
-                                    <td class="act">
-                                        <a href="#signup" class="btn btn-sm btn-primary" lang="pl">Wybierz</a>
-                                        <a href="#signup" class="btn btn-sm btn-primary" lang="en">Choose</a>
-                                    </td>
+                                    <th scope="row" lang="pl">Grupy i tygodniowy harmonogram</th>
+                                    <th scope="row" lang="en">Groups and weekly schedules</th>
+                                    <td class="mark"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie Standard</span><span class="sr-only" lang="en">In Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" lang="pl">Członkowie, zaproszenia i role</th>
+                                    <th scope="row" lang="en">Members, invitations and roles</th>
+                                    <td class="mark"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie Standard</span><span class="sr-only" lang="en">In Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" lang="pl">Kalendarz treningów, obecności i odwołania</th>
+                                    <th scope="row" lang="en">Training calendar, attendance and cancellations</th>
+                                    <td class="mark"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie Standard</span><span class="sr-only" lang="en">In Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" lang="pl">Składki, salda rodzin i płatności online</th>
+                                    <th scope="row" lang="en">Fees, family balances and online payments</th>
+                                    <td class="mark"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie Standard</span><span class="sr-only" lang="en">In Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" lang="pl">Powiadomienia w aplikacji, e-mailem i SMS-em</th>
+                                    <th scope="row" lang="en">In-app, email and SMS notifications</th>
+                                    <td class="mark"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie Standard</span><span class="sr-only" lang="en">In Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" lang="pl">Baza wiedzy klubu</th>
+                                    <th scope="row" lang="en">Club knowledge base</th>
+                                    <td class="mark"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie Standard</span><span class="sr-only" lang="en">In Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" lang="pl">Aplikacja po polsku i po angielsku</th>
+                                    <th scope="row" lang="en">Polish and English throughout</th>
+                                    <td class="mark"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie Standard</span><span class="sr-only" lang="en">In Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
+                                </tr>
+
+                                <tr class="row-new">
+                                    <th scope="row">
+                                        <span lang="pl">Asystent AI — klub odpowiada, kiedy Ty śpisz
+                                            <span class="row-note" lang="pl">Członek pisze na czacie „kiedy następny trening?”, „ile zalegam?”, „gdzie odbieram dziecko?” — i dostaje odpowiedź od razu, o każdej porze. Zamiast Twojego telefonu w niedzielę wieczorem.</span>
+                                        </span>
+                                        <span lang="en">AI assistant — your club answers while you sleep
+                                            <span class="row-note" lang="en">A member types “when is the next training?”, “how much do I owe?”, “where do I pick my child up?” — and gets an answer straight away, at any hour. Instead of your phone on a Sunday evening.</span>
+                                        </span>
+                                    </th>
+                                    <td class="mark"><span class="dash" aria-hidden="true">—</span><span class="sr-only" lang="pl">Niedostępne w planie Standard</span><span class="sr-only" lang="en">Not in Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
+                                </tr>
+                                <tr class="row-new">
+                                    <th scope="row">
+                                        <span lang="pl">Integracja z WhatsApp
+                                            <span class="row-note" lang="pl">Rozmowa toczy się tam, gdzie rodzice już piszą — nie trzeba instalować kolejnej aplikacji ani zakładać konta.</span>
+                                        </span>
+                                        <span lang="en">WhatsApp integration
+                                            <span class="row-note" lang="en">The conversation happens where parents already are — no extra app to install and no account to create.</span>
+                                        </span>
+                                    </th>
+                                    <td class="mark"><span class="dash" aria-hidden="true">—</span><span class="sr-only" lang="pl">Niedostępne w planie Standard</span><span class="sr-only" lang="en">Not in Standard</span></td>
+                                    <td class="mark featured"><span class="tick" aria-hidden="true">✓</span><span class="sr-only" lang="pl">W planie AI Boost</span><span class="sr-only" lang="en">In AI Boost</span></td>
                                 </tr>
                             </tbody>
+
+                            <tfoot>
+                                <tr>
+                                    <th scope="row" lang="pl">Każde kolejne 50 członków</th>
+                                    <th scope="row" lang="en">Every next 50 members</th>
+                                    <td class="mark"><span class="amount data-num">+30 zł</span></td>
+                                    <td class="mark featured"><span class="amount data-num">+30 zł</span></td>
+                                </tr>
+                                <tr class="cta-row">
+                                    <th scope="row"></th>
+                                    <td class="mark">
+                                        <a href="https://app.clubhq.cloud" class="btn btn-sm btn-ghost" lang="pl">Załóż klub</a>
+                                        <a href="https://app.clubhq.cloud" class="btn btn-sm btn-ghost" lang="en">Set up your club</a>
+                                    </td>
+                                    <td class="mark featured">
+                                        <a href="https://app.clubhq.cloud" class="btn btn-sm btn-primary" lang="pl">Załóż klub</a>
+                                        <a href="https://app.clubhq.cloud" class="btn btn-sm btn-primary" lang="en">Set up your club</a>
+                                    </td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
 
                 <div class="price-notes">
+                    <p class="note" lang="pl">Plan wybierasz po założeniu klubu. Najpierw zakładasz konto i rejestrujesz klub, a dopiero potem wskazujesz plan i przechodzisz do płatności — do tego momentu nic nie płacisz.</p>
+                    <p class="note" lang="en">You choose the plan after your club exists. First you create an account and register the club, then you pick a plan and go through to payment — nothing is charged before that point.</p>
                     <p class="note" lang="pl">Trenerzy oraz konto właściciela klubu nie wliczają się do limitu członków.</p>
                     <p class="note" lang="en">Coaches and the club owner account do not count toward the member limit.</p>
                     <p class="fine" lang="pl">Podane ceny są cenami brutto (zawierają VAT). Płatność miesięczna, rozliczana automatycznie do momentu rezygnacji. Płatności online obsługuje <a href="https://www.przelewy24.pl" target="_blank" rel="noopener">Przelewy24</a>. Szczegóły w <a href="regulamin.html">Regulaminie</a>.</p>
@@ -529,15 +610,16 @@
            visitor here has no ClubHQ session — and is rate-limited at the API
            Gateway route instead.
 
-           POINTED AT DEV ON PURPOSE, including from the live site: `dev` is the only
-           environment that exists today, so it is where real pre-launch signups go
-           for now. Switch this to api.clubhq.cloud the moment a production stack is
-           deployed — and move the contacts already collected, because they live in
-           dev's SES account until then.
+           PRODUCTION. SESv2 allows exactly one contact list per AWS account per
+           Region, and production is the environment that owns it
+           (ses_contact_list_enabled in terragrunt/prod) — dev now answers this route
+           with "the signup list is not available right now", so pointing here is not
+           a preference, it is the only host that can accept a signup.
 
-           Whichever host this is, the site's origin has to be on that API's CORS
-           allow-list — see var.marketing_origins in terraform/variables.tf. */
-        const LAUNCH_LIST_ENDPOINT = 'https://api.dev.clubhq.cloud/launch-list/contacts';
+           The site's origin has to be on that API's CORS allow-list — see
+           var.marketing_origins in terraform/variables.tf, where production carries
+           the two real hostnames and no localhost. */
+        const LAUNCH_LIST_ENDPOINT = 'https://api.clubhq.cloud/launch-list/contacts';
 
         document.getElementById('newsletter-form').addEventListener('submit', function (e) {
             e.preventDefault();
