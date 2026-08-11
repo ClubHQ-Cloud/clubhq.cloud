@@ -1055,13 +1055,13 @@ img {
     line-height: 1.1;
 }
 
-.plan-table .per {
+.plan-table :where(.per) {
     display: block;
     font-size: var(--text-xs);
     color: var(--text-tertiary);
 }
 
-.plan-table .plan-for {
+.plan-table :where(.plan-for) {
     display: block;
     margin-top: .35rem;
     font-size: var(--text-xs);
@@ -1089,7 +1089,7 @@ img {
 /* The two AI-only rows carry a short line of explanation, because "AI
    assistant" on its own does not tell a coach what changes on a Sunday
    evening. Everything above them is self-evident and gets no note. */
-.plan-table .row-note {
+.plan-table :where(.row-note) {
     display: block;
     margin-top: .3rem;
     font-size: var(--text-sm);
@@ -1104,10 +1104,6 @@ img {
 /* Keeps "+30 zł" and the two CTA buttons on one line — these cells are narrow by
    design and a wrapped price reads as two numbers. */
 .plan-table .mark { white-space: nowrap; }
-
-/* Each feature label carries one span per language; making them block keeps the
-   explanatory note underneath rather than inline after it. */
-.plan-table tbody th > span[lang] { display: block; }
 
 .plan-table .tick {
     color: var(--success-fg);
