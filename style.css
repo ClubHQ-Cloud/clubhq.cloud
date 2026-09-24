@@ -1,5 +1,5 @@
 /* ===========================================================================
-   ClubHQ.cloud — built on the ClubHQ application's design system.
+   Sport Match (clubhq.cloud) — built on the Sport Match application's design system.
 
    Every colour below is copied from the app's own tokens
    (AppFrontend/ds-bundle/tokens/colors.css). Nothing here is invented: the
@@ -371,17 +371,17 @@ img {
 }
 
 /* ===========================================================================
-   Brand lockup — the "Offset H": left stem planted, right stem raised 8
-   units, crossbar swept upward between them. Ink comes from currentColor and
-   the offset stem from --chq-mark-accent, so a tone is just a pair of CSS
-   values. Per the brand's handoff rules the mark is never recoloured
-   stem-by-stem outside this palette, never outlined, and never rotated.
+   Brand lockup — Sport Match's "Pulse": a pulse line whose peak forms an M,
+   the first half in ink (currentColor), the second in --chq-mark-accent —
+   two sides meeting at the low point — so a tone is just a pair of CSS
+   values. Per the brand's handoff rules the stroke is never split anywhere
+   but that low point, never outlined, and never rotated.
    =========================================================================== */
 
 .lockup {
     display: inline-flex;
     align-items: center;
-    gap: .42em;
+    gap: .38em;
     font-size: 28px;
     text-decoration: none;
 }
@@ -397,14 +397,14 @@ img {
 
 .lockup-word {
     font-weight: 700;
-    font-size: .62em;
-    letter-spacing: -.03em;
+    font-size: .6em;
+    letter-spacing: -.035em;
     white-space: nowrap;
 }
 
 /* Under 360px the bar cannot hold the mark, the wordmark, the language switch
    and the login button at once, so the top bar's lockup falls back to the mark
-   alone — the svg carries aria-label="ClubHQ", so the link keeps its name. The
+   alone — the svg carries aria-label="Sport Match", so the link keeps its name. The
    footer lockup has the width to spare and is left whole. */
 .topbar .lockup-word { display: none; }
 
@@ -415,7 +415,7 @@ img {
 .lockup-word span { color: var(--chq-mark-accent); }
 
 .tone-auto { color: var(--text-primary); --chq-mark-accent: var(--accent-text); }
-.tone-dark { color: #fff; --chq-mark-accent: var(--color-accent-on-dark); }
+.tone-dark { color: #fff; --chq-mark-accent: oklch(72% .15 258); } /* the brand's own accent-on-ink */
 
 /* ===========================================================================
    Top bar — used light on the legal pages, and inside the ink hero on the
