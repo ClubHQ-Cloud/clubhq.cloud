@@ -1468,6 +1468,10 @@ footer {
 .help-landscape .help-steps[data-orientation="portrait"] { display: none; }
 .help-landscape .help-steps[data-orientation="landscape"] { display: grid; }
 
+/* Without this a grid item is at least as wide as its content, so a landscape
+   phone (35rem) would push the page sideways on a narrow screen. */
+.help-step { min-width: 0; }
+
 .help-step-head {
     display: flex;
     align-items: center;
@@ -1514,8 +1518,101 @@ footer {
     margin: 1rem 0 0 2.6rem;
 }
 
-.help-shot-frame {
+/* The screenshot inside a drawn phone. Every size is in cqi — a fraction of the
+   phone's own width — so the bezel, the screen corners and the camera keep their
+   proportions at any size. Proportions are the iPhone 17 (screen corner ≈ 13.7% of
+   its short side, Dynamic Island 125×37 pt at 11 pt from the top) and the Pixel 10
+   Pro (a punch-hole camera, which its landscape capture already shows as a black
+   band on the left). Landscape is the phone turned with its top to the left, as the
+   captures were: the camera moves to the left edge and the side buttons to the top
+   and bottom. */
+
+.help-device {
+    container-type: inline-size;
+    width: 17.5rem;
+    max-width: 100%;
+    padding: 1px 2px;          /* room for the side buttons */
+}
+
+.help-device--landscape { width: 35rem; }
+
+.help-device-body {
+    --bezel: 4.3cqi;
+    --radius: 12.8cqi;
+    --rim: #4a4a4e;
+    --button: #3a3a3e;
     position: relative;
+    padding: var(--bezel);
+    border-radius: calc(var(--radius) + var(--bezel));
+    background: #0b0b0c;
+    box-shadow:
+        0 0 0 max(1.5px, .55cqi) var(--rim),
+        var(--shadow-lg);
+}
+
+.help-device--iphone.help-device--landscape .help-device-body { --bezel: 2cqi; --radius: 6cqi; }
+.help-device--pixel .help-device-body { --bezel: 3.4cqi; --radius: 9cqi; --rim: #2e2e31; }
+.help-device--pixel.help-device--landscape .help-device-body { --bezel: 1.55cqi; --radius: 4cqi; }
+
+.help-device-screen {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    line-height: 0;
+    background: #000;
+}
+
+.help-device-screen img { display: block; width: 100%; height: auto; }
+
+/* Camera cut-out. */
+.help-device-camera {
+    position: absolute;
+    background: #000;
+    border-radius: 999px;
+    pointer-events: none;
+}
+
+.help-device--iphone.help-device--portrait .help-device-camera {
+    top: 1.26%; left: 50%; width: 31.1%; height: 4.23%;
+    transform: translateX(-50%);
+}
+
+.help-device--iphone.help-device--landscape .help-device-camera {
+    left: 1.26%; top: 50%; height: 31.1%; width: 4.23%;
+    transform: translateY(-50%);
+}
+
+.help-device--pixel.help-device--portrait .help-device-camera {
+    top: 1.5%; left: 50%; width: 3.4%; aspect-ratio: 1;
+    transform: translateX(-50%);
+}
+
+.help-device--pixel.help-device--landscape .help-device-camera {
+    left: 2.75%; top: 50%; height: 3.4%; aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+}
+
+/* Side buttons: ::before is the power button, ::after the volume rocker. */
+.help-device-body::before,
+.help-device-body::after {
+    content: "";
+    position: absolute;
+    background: var(--button);
+    border-radius: 1cqi;
+}
+
+.help-device--portrait .help-device-body::before { right: -1.3cqi; top: 27%; width: 1cqi; height: 12%; }
+.help-device--portrait .help-device-body::after  { left: -1.3cqi;  top: 24%; width: 1cqi; height: 10%; }
+.help-device--pixel.help-device--portrait .help-device-body::before { top: 20%; height: 7%; }
+.help-device--pixel.help-device--portrait .help-device-body::after  { left: auto; right: -1.3cqi; top: 31%; height: 14%; }
+
+.help-device--landscape .help-device-body::before { top: -.6cqi; left: 27%; height: .45cqi; width: 12%; }
+.help-device--landscape .help-device-body::after  { bottom: -.6cqi; left: 24%; height: .45cqi; width: 10%; }
+.help-device--pixel.help-device--landscape .help-device-body::before { left: 20%; width: 7%; }
+.help-device--pixel.help-device--landscape .help-device-body::after  { bottom: auto; top: -.6cqi; left: 31%; width: 14%; }
+
+/* The home-screen result is a crop, not a whole screen, so it gets plain corners. */
+.help-shot-crop {
     display: inline-block;
     max-width: 100%;
     overflow: hidden;
@@ -1525,10 +1622,7 @@ footer {
     line-height: 0;
 }
 
-.help-shot img { display: block; max-width: 100%; height: auto; }
-.help-shot--portrait img { width: 17.5rem; }
-.help-shot--landscape img { width: 35rem; }
-.help-shot--home img { width: 15rem; }
+.help-shot-crop img { display: block; width: 15rem; max-width: 100%; height: auto; }
 
 .help-ring {
     position: absolute;
@@ -1546,7 +1640,7 @@ footer {
 
 @media (max-width: 40rem) {
     .help-shot { margin-left: 0; }
-    .help-shot--portrait img { width: 15rem; }
+    .help-device--portrait { width: 15rem; }
 }
 
 /* FAQ, footer actions, index -------------------------------------------------- */

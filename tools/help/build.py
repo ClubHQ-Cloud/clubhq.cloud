@@ -186,11 +186,26 @@ def shot_figure(lang, shot_set, orientation, step, text, targets):
         bw, bh = min(box['w'] + 2 * pad_x, 1 - x), min(box['h'] + 2 * pad_y, 1 - y)
         ring = (f'<span class="help-ring" style="left:{x * 100:.2f}%;top:{y * 100:.2f}%;'
                 f'width:{bw * 100:.2f}%;height:{bh * 100:.2f}%"></span>')
-    kind = 'home' if step['shot'] == 'home' else orientation
+    img = (f'<img src="/help-assets/install/{lang}/{name}.webp" width="{w}" height="{h}" '
+           f'alt="{html.escape(alt)}" loading="lazy">')
+    if step['shot'] == 'home':
+        return f'''
+                        <figure class="help-shot help-shot--home">
+                            <div class="help-shot-crop">{img}</div>
+                        </figure>'''
+    # The screenshot inside a drawn phone, the way the simulator shows it: bezel, screen
+    # corners and the camera cut-out the capture itself leaves blank. Drawn in CSS rather
+    # than Apple's or Google's device artwork, which come with their own licence terms.
+    device = 'pixel' if shot_set == 'android' else 'iphone'
     return f'''
-                        <figure class="help-shot help-shot--{kind}">
-                            <div class="help-shot-frame">
-                                <img src="/help-assets/install/{lang}/{name}.webp" width="{w}" height="{h}" alt="{html.escape(alt)}" loading="lazy">{ring}
+                        <figure class="help-shot help-shot--{orientation}">
+                            <div class="help-device help-device--{device} help-device--{orientation}">
+                                <div class="help-device-body">
+                                    <div class="help-device-screen">
+                                        {img}{ring}
+                                        <span class="help-device-camera" aria-hidden="true"></span>
+                                    </div>
+                                </div>
                             </div>
                         </figure>'''
 
