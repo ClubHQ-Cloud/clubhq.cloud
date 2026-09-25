@@ -33,7 +33,7 @@ URLS = {
     'en': {'index': '/help/', 'install': '/help/install-app/'},
 }
 SITE = 'https://sportmatch.pl'
-APP = 'https://app.clubhq.cloud'
+APP = 'https://app.sportmatch.pl'
 
 # The home-screen result, cut out of the last portrait capture: the icon and a bit of
 # wallpaper, as fractions of the screenshot (x, y, w, h). The capture's home screen

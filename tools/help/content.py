@@ -149,7 +149,7 @@ GUIDES = [
             'any': [
                 {'icon': 'download', 'en': 'In Chrome or Edge, click the install icon at the right end of the address bar.', 'pl': 'W Chrome lub Edge kliknij ikonę instalacji na prawym końcu paska adresu.'},
                 {'icon': 'check', 'en': 'Click <b>Install</b>. Sport Match opens in its own window.', 'pl': 'Kliknij <b>Zainstaluj</b>. Sport Match otworzy się we własnym oknie.'},
-                {'icon': 'smartphone', 'en': 'The app is at its best on a phone, though — open <b>app.clubhq.cloud</b> there and pick your phone’s browser above.', 'pl': 'Najlepiej sprawdza się jednak na telefonie — otwórz tam <b>app.clubhq.cloud</b> i wybierz powyżej przeglądarkę telefonu.'},
+                {'icon': 'smartphone', 'en': 'The app is at its best on a phone, though — open <b>app.sportmatch.pl</b> there and pick your phone’s browser above.', 'pl': 'Najlepiej sprawdza się jednak na telefonie — otwórz tam <b>app.sportmatch.pl</b> i wybierz powyżej przeglądarkę telefonu.'},
             ],
         },
     },
