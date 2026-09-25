@@ -32,7 +32,7 @@ URLS = {
     'pl': {'index': '/pomoc/', 'install': '/pomoc/instalacja-aplikacji/'},
     'en': {'index': '/help/', 'install': '/help/install-app/'},
 }
-SITE = 'https://clubhq.cloud'
+SITE = 'https://sportmatch.pl'
 APP = 'https://app.clubhq.cloud'
 
 # The home-screen result, cut out of the last portrait capture: the icon and a bit of
